@@ -4,7 +4,7 @@
             "id": "admin-id",
             "name": "Administrator",
             "email": "admin@smart.com",
-            "password": "/I7cj6SwQejZSg9jhwWnAHwBhEq/",
+            "password": "$2b$12$apu01bzXAHBWdHgKtrlj4e.PZIw0LrkrdTDTC0u9DVHJshYMaItPC",
             "role": "Admin",
             "created_at": "2026-04-06T12:00:00.000000",
             "last_login": null,
