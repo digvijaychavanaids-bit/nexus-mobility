@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+from contextlib import asynccontextmanager
 
 # Ensure backend directory is in the path for module resolution on Render/HuggingFace
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -13,6 +14,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes import admin, analytics, auth, predictions, analyst
+from utils.model_validator import run_startup_validation
 
 LOG_DIR = Path(__file__).resolve().parent.parent / "data" / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -24,7 +26,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Smart Traffic & Mobility Analytics System")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    run_startup_validation()
+    yield
+
+
+app = FastAPI(title="Smart Traffic & Mobility Analytics System", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

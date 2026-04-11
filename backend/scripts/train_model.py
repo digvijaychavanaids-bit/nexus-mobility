@@ -1,13 +1,15 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 import pickle
 import os
 
-# Absolute path for clarity
-abs_data_path = r"c:\Users\karan\Downloads\smart-traffic-system\INDIA_AQI_COMPLETE_20251126.csv"
-model_dir = r"c:\Users\karan\Downloads\smart-traffic-system\backend\ml_model"
+# Resolve paths relative to this script so it works on any OS / server
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+abs_data_path = BASE_DIR / "data" / "india_aqi_lite.csv"
+model_dir = BASE_DIR / "data" / "models"
 
 def train_model():
     try:
@@ -73,10 +75,11 @@ def train_model():
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_sample, y_sample)
         
-        if not os.path.exists(model_dir):
-            os.makedirs(model_dir)
+        model_dir.mkdir(parents=True, exist_ok=True)
             
-        model_path = os.path.join(model_dir, "model.pkl")
+        # Saved as model.pkl (legacy fallback path used by backend/services/ml.py).
+        # The primary model is traffic_predictor_lite.pkl; use train_safe.py instead.
+        model_path = model_dir / "model.pkl"
         with open(model_path, 'wb') as f:
             pickle.dump(model, f)
             

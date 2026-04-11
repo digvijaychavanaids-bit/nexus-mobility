@@ -29,6 +29,27 @@ def get_model_path() -> Path | None:
     return None
 
 
+def check_model_availability() -> bool:
+    """
+    Log the model availability status at startup.
+
+    Returns True if a model file is present, False otherwise.
+    This never raises — it is safe to call during application startup.
+    """
+    model_path = get_model_path()
+    if model_path is None:
+        logger.warning(
+            "No ML model file found (checked %s and %s). "
+            "The service will use deterministic fallback predictions. "
+            "Run backend/ml_model/train_safe.py to generate the model.",
+            PRIMARY_MODEL_PATH,
+            LEGACY_MODEL_PATH,
+        )
+        return False
+    logger.info("ML model available at %s.", model_path)
+    return True
+
+
 def load_model():
     model_path = get_model_path()
     if model_path is None:
