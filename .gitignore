@@ -28,11 +28,13 @@ data/logs/
 
 # Large datasets — too big for GitHub
 *.csv
+!data/india_aqi_lite.csv
 data/uploads/
 india_aqi_complete_*.csv
 
 # Model artifacts — regenerate on setup
 backend/ml_model/*.pkl
+!data/models/traffic_predictor_lite.pkl
 
 # Node / Frontend
 node_modules/

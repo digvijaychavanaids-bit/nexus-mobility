@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MODEL_DIR = BASE_DIR / "data" / "models"
-PRIMARY_MODEL_PATH = MODEL_DIR / "traffic_predictor.pkl"
+PRIMARY_MODEL_PATH = MODEL_DIR / "traffic_predictor_lite.pkl"
 LEGACY_MODEL_PATH = BASE_DIR / "backend" / "ml_model" / "model.pkl"
 
 CITY_ALIASES = {"Bangalore": "Bengaluru"}
