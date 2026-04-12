@@ -85,15 +85,15 @@
   --error: #ba1a1a;
   --on-error: #ffffff;
 
-  --surface: #fdfcff;
-  --on-surface: #111827; /* Rich Black for visibility */
+  --surface: #ffffff;
+  --on-surface: #111827;
   --on-surface-variant: #44474e;
   --outline: #74777f;
   --surface-container-lowest: #ffffff;
-  --surface-container-low: #f7f9fc;
-  --surface-container: #f0f4f9;
-  --surface-container-high: #e9eef5;
-  --surface-container-highest: #e1e9f1;
+  --surface-container-low: #f8fafc;
+  --surface-container: #f1f5f9;
+  --surface-container-high: #e2e8f0;
+  --surface-container-highest: #cbd5e1;
   
   --primary-rgb: 0, 100, 149;
 }
@@ -108,20 +108,13 @@
     text-rendering: optimizeLegibility;
     transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  h1, h2, h3, h4, h5, h6 { 
-    font-family: var(--font-headline);
-    @apply tracking-tight;
-  }
 }
 
 @layer components {
   .glass-panel {
-    @apply backdrop-blur-2xl border border-white/5 tonal-transition;
-    background-color: color-mix(in srgb, var(--surface-container-low), transparent 40%);
-  }
-  
-  .tonal-transition {
-    @apply transition-all duration-400 ease-in-out;
+    @apply backdrop-blur-2xl border border-white/5;
+    background-color: var(--surface-container-low);
+    transition: all 0.4s ease-in-out;
   }
 }
 
