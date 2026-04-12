@@ -115,7 +115,7 @@ const ProfileSettings = () => {
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
             <span className="material-symbols-outlined text-primary leading-none" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
           </div>
-          <h3 className="text-lg font-black text-white font-headline tracking-tighter uppercase antialiased">Profile Information</h3>
+          <h3 className="text-lg font-black text-on-surface font-headline tracking-tighter uppercase antialiased">Profile Information</h3>
         </div>
         <button 
           onClick={handleUpdate}

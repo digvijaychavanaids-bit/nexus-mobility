@@ -24,13 +24,13 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="h-screen w-64 fixed left-0 top-0 bg-slate-900 flex flex-col py-6 px-4 font-inter text-sm font-medium z-40 transition-all duration-200 ease-in-out border-r border-white/5">
+    <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container flex flex-col py-6 px-4 font-inter text-sm font-medium z-40 transition-all duration-200 ease-in-out border-r border-on-surface/5">
       <div className="mb-8 px-2 flex items-center gap-3">
         <div className="w-9 h-9 rounded-lg flow-gradient-primary flex items-center justify-center shadow-lg shadow-primary/20">
           <span className="material-symbols-outlined text-on-primary text-xl">hub</span>
         </div>
         <div>
-          <h1 className="text-lg font-black text-white leading-tight tracking-tight">Nexus Mobility</h1>
+          <h1 className="text-lg font-black text-on-surface leading-tight tracking-tight">Nexus Mobility</h1>
           <p className="text-[9px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">City Planning Division</p>
         </div>
       </div>
@@ -44,7 +44,7 @@ const Sidebar = () => {
               `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-semibold ${
                 isActive 
                   ? 'text-sky-400 bg-sky-400/10 shadow-sm' 
-                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                  : 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
               }`
             }
           >
@@ -63,7 +63,7 @@ const Sidebar = () => {
               `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-semibold ${
                 isActive 
                   ? 'text-sky-400 bg-sky-400/10 shadow-sm' 
-                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                  : 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
               }`
             }
           >

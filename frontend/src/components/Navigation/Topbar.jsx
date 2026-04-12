@@ -101,7 +101,7 @@ const Topbar = ({ user: initialUser }) => {
     : [];
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-slate-900/90 backdrop-blur-xl flex justify-between items-center px-8 h-16 border-b border-white/5">
+    <header className="w-full sticky top-0 z-50 bg-surface-container/90 backdrop-blur-xl flex justify-between items-center px-8 h-16 border-b border-white/5">
       <div className="flex items-center gap-6 w-1/2">
         <div className="relative w-full max-w-md group">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-400 transition-colors pointer-events-none z-10">
@@ -109,7 +109,7 @@ const Topbar = ({ user: initialUser }) => {
           </span>
           <input
             type="text"
-            className="w-full bg-slate-800/50 border-none rounded-full pl-10 pr-4 py-2 text-sm text-on-surface focus:ring-2 focus:ring-sky-400 transition-all font-body placeholder:text-slate-500 placeholder:opacity-60"
+            className="w-full bg-surface-container-high border-none rounded-full pl-10 pr-4 py-2 text-sm text-on-surface focus:ring-2 focus:ring-sky-400 transition-all font-body placeholder:text-on-surface-variant/50"
             placeholder="Search nodes (e.g. Mumbai, Admin, Traffic)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -136,7 +136,7 @@ const Topbar = ({ user: initialUser }) => {
                         <span className="material-symbols-outlined text-lg text-slate-400 group-hover:text-primary transition-colors">{node.icon}</span>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-white leading-none">{node.title}</span>
+                        <span className="text-sm font-bold text-on-surface leading-none">{node.title}</span>
                         <span className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-1">{node.category}</span>
                       </div>
                       <span className="material-symbols-outlined text-sm text-slate-600 ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
@@ -252,7 +252,7 @@ const Topbar = ({ user: initialUser }) => {
             className="flex items-center gap-3 p-1.5 pr-2 rounded-full hover:bg-white/5 transition-all outline-none border border-white/0 hover:border-white/5"
           >
             <div className="text-right hidden sm:block">
-              <p className="text-[11px] font-black text-white leading-tight uppercase tracking-tight">{user?.name || 'Alex Rivera'}</p>
+              <p className="text-[11px] font-black text-on-surface leading-tight uppercase tracking-tight">{user?.name || 'Alex Rivera'}</p>
               <p className="text-[8px] text-sky-400 font-bold uppercase tracking-widest mt-0.5 opacity-80">{user?.role || 'User'}</p>
             </div>
             <div className="relative flex-shrink-0">
@@ -284,7 +284,7 @@ const Topbar = ({ user: initialUser }) => {
                   </div>
                   <div className="min-w-0">
                     <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest leading-none mb-1">Command Control</p>
-                    <p className="text-xs text-white font-bold truncate">{user?.name || 'Alex Rivera'}</p>
+                    <p className="text-xs text-on-surface font-bold truncate">{user?.name || 'Alex Rivera'}</p>
                     <p className="text-[9px] text-sky-400 font-bold uppercase tracking-widest opacity-60 mt-0.5">{user?.role || 'User'}</p>
                   </div>
                 </div>

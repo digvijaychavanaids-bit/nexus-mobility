@@ -1,19 +1,23 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-
-
 const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return (saved) || 'light';
+    // Default to dark for premium aesthetic, but allow user preference
+    return saved || 'dark';
   });
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    document.body.style.backgroundColor = theme === 'light' ? '#f8fafc' : '#0f172a';
-    document.body.style.color = theme === 'light' ? '#1e293b' : '#f8fafc';
+    
+    const body = document.body;
+    if (theme === 'light') {
+      body.classList.add('light-theme');
+    } else {
+      body.classList.remove('light-theme');
+    }
   }, [theme]);
 
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');

@@ -58,7 +58,7 @@ function App() {
   const isAuthPage = location.pathname === '/login' || location.pathname === '/';
 
   return (
-    <div className="min-h-screen bg-surface-container-lowest text-on-surface font-body flex overflow-hidden w-full">
+    <div className="min-h-screen bg-surface-container-lowest text-on-surface font-body flex overflow-hidden w-full transition-colors duration-500">
       {!isAuthPage && (
         <ProtectedRoute>
           <div className="w-64 flex-shrink-0">
@@ -67,7 +67,7 @@ function App() {
         </ProtectedRoute>
       )}
 
-      <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-900 transition-all">
+      <div className="flex-1 flex flex-col h-screen overflow-hidden bg-surface-container-low transition-all duration-500">
         {!isAuthPage && (
           <ProtectedRoute>
             <Topbar user={user} />

@@ -10,7 +10,7 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
             <span className="material-symbols-outlined text-tertiary text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
               {currentTheme === 'dark' ? 'dark_mode' : 'light_mode'}
             </span>
-            <h3 className="text-lg font-black text-white font-headline tracking-tighter uppercase antialiased">Interface Theme</h3>
+            <h3 className="text-lg font-black text-on-surface font-headline tracking-tighter uppercase antialiased">Interface Theme</h3>
           </div>
           <p className="text-[10px] uppercase font-black tracking-[0.2em] text-on-surface-variant opacity-60">Visual System Protocol</p>
         </div>

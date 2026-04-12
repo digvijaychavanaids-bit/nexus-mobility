@@ -4,117 +4,133 @@
   --font-body: 'Inter', sans-serif;
   --font-headline: 'Manrope', sans-serif;
   
-  /* Core Municipal Palette */
-  --color-primary: #94ccff;
-  --color-on-primary: #003355;
-  --color-primary-container: #004a77;
-  --color-on-primary-container: #cce5ff;
+  /* Core Municipal Palette (Tonal System) */
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
   
-  --color-secondary: #b6c9d8;
-  --color-on-secondary: #21333e;
-  --color-secondary-container: #374955;
-  --color-on-secondary-container: #d2e5f5;
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
   
-  --color-tertiary: #cfbcff;
-  --color-on-tertiary: #381e72;
-  --color-tertiary-container: #4f378b;
-  --color-on-tertiary-container: #eaddff;
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
   
-  --color-error: #ffb4ab;
-  --color-on-error: #690005;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
 
-  /* Surface System (Critical for visibility) */
-  --color-surface: #101418;
-  --color-on-surface: #f8fafc;
-  --color-on-surface-variant: #94a3b8;
-  --color-outline: #475569;
-  --color-surface-container-lowest: #0c0e10;
-  --color-surface-container-low: #191c20;
-  --color-surface-container: #1d2024;
-  --color-surface-container-high: #272a2f;
-  --color-surface-container-highest: #32353a;
+  /* Surface System (Theme-Aware) */
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
 
   --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s infinite linear;
+}
+
+:root {
+  /* Dark Theme Tokens (Default) */
+  --primary: #94ccff;
+  --on-primary: #003355;
+  --primary-container: #004a77;
+  --on-primary-container: #cce5ff;
+  
+  --secondary: #b6c9d8;
+  --on-secondary: #21333e;
+  --secondary-container: #374955;
+  --on-secondary-container: #d2e5f5;
+  
+  --tertiary: #cfbcff;
+  --on-tertiary: #381e72;
+  
+  --error: #ffb4ab;
+  --on-error: #690005;
+
+  --surface: #101418;
+  --on-surface: #f8fafc;
+  --on-surface-variant: #94a3b8;
+  --outline: #475569;
+  --surface-container-lowest: #0c0e10;
+  --surface-container-low: #191c20;
+  --surface-container: #1d2024;
+  --surface-container-high: #272a2f;
+  --surface-container-highest: #32353a;
+  
+  --primary-rgb: 148, 204, 255;
+}
+
+.light-theme {
+  /* High-Contrast Light Theme Tokens */
+  --primary: #006495;
+  --on-primary: #ffffff;
+  --primary-container: #cce5ff;
+  --on-primary-container: #001e30;
+  
+  --secondary: #51606f;
+  --on-secondary: #ffffff;
+  --secondary-container: #d5e4f6;
+  --on-secondary-container: #0e1d2a;
+  
+  --tertiary: #6750a4;
+  --on-tertiary: #ffffff;
+  
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+
+  --surface: #fdfcff;
+  --on-surface: #111827; /* Rich Black for visibility */
+  --on-surface-variant: #44474e;
+  --outline: #74777f;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f7f9fc;
+  --surface-container: #f0f4f9;
+  --surface-container-high: #e9eef5;
+  --surface-container-highest: #e1e9f1;
+  
+  --primary-rgb: 0, 100, 149;
 }
 
 @layer base {
   body { 
     @apply bg-surface-container-lowest text-on-surface font-body;
-    background-color: #0c0e10;
-    color: #f8fafc;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   h1, h2, h3, h4, h5, h6 { 
     font-family: var(--font-headline);
     @apply tracking-tight;
-    text-rendering: optimizeLegibility;
-  }
-  input::placeholder {
-    color: #64748b !important;
-    opacity: 1;
-  }
-  
-  button, a {
-    -webkit-tap-highlight-color: transparent;
   }
 }
 
 @layer components {
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    display: inline-block;
-    line-height: 1;
-  }
-  
   .glass-panel {
-    @apply bg-surface-container-low/60 backdrop-blur-2xl border border-white/5;
+    @apply backdrop-blur-2xl border border-white/5 tonal-transition;
+    background-color: color-mix(in srgb, var(--surface-container-low), transparent 40%);
   }
   
-  .flow-gradient-primary {
-    background: linear-gradient(135deg, #94ccff 0%, #005b8d 100%);
-  }
-
-  .cta-gradient {
-    background: linear-gradient(135deg, #94ccff 0%, #0078b4 50%, #005b8d 100%);
-  }
-
   .tonal-transition {
-    @apply transition-all duration-300 ease-in-out;
+    @apply transition-all duration-400 ease-in-out;
   }
-
-  /* Fix for overlapping text and specific visibility issues */
-  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background: #32353a; border-radius: 10px; }
 }
 
-/* Modern Minimalist Scrollbar (Global) */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { 
-  background: #32353a; 
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #414750;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Custom Chart Animations */
 @keyframes pulse-soft {
   0%, 100% { opacity: 0.1; }
   50% { opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
 }
