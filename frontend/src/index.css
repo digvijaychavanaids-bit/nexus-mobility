@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------
+   MUNICIPAL VISUAL SYSTEM (Tailwind v4 Optimized)
+--------------------------------------------------------- */
+
 @theme {
   --font-body: 'Inter', sans-serif;
   --font-headline: 'Manrope', sans-serif;
   
-  /* Core Municipal Palette (Tonal System) */
+  /* Reactive Tonal Palette */
   --color-primary: var(--primary);
   --color-on-primary: var(--on-primary);
   --color-primary-container: var(--primary-container);
@@ -17,11 +21,10 @@
   
   --color-tertiary: var(--tertiary);
   --color-on-tertiary: var(--on-tertiary);
-  
   --color-error: var(--error);
   --color-on-error: var(--on-error);
 
-  /* Surface System (Theme-Aware) */
+  /* Unified Surface Logic */
   --color-surface: var(--surface);
   --color-on-surface: var(--on-surface);
   --color-on-surface-variant: var(--on-surface-variant);
@@ -37,7 +40,7 @@
 }
 
 :root {
-  /* Dark Theme Tokens (Default) */
+  /* DARK THEME (System Core) */
   --primary: #94ccff;
   --on-primary: #003355;
   --primary-container: #004a77;
@@ -68,7 +71,7 @@
 }
 
 .light-theme {
-  /* High-Contrast Light Theme Tokens */
+  /* PRECISION LIGHT THEME (Interface Layer) */
   --primary: #006495;
   --on-primary: #ffffff;
   --primary-container: #cce5ff;

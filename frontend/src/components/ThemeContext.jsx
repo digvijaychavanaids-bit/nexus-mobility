@@ -12,11 +12,12 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('theme', theme);
     
-    const body = document.body;
+    // Apply theme to document element (html) for global CSS variable inheritance
+    const root = document.documentElement;
     if (theme === 'light') {
-      body.classList.add('light-theme');
+      root.classList.add('light-theme');
     } else {
-      body.classList.remove('light-theme');
+      root.classList.remove('light-theme');
     }
   }, [theme]);
 
