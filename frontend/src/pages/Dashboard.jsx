@@ -101,13 +101,35 @@ const Dashboard = () => {
             </select>
           </div>
 
-          <button 
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => fetchDashboardData(true)}
             disabled={refreshing}
-            className={`p-2.5 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-all ${refreshing ? 'animate-spin' : ''}`}
+            className={`flex items-center gap-3 px-5 py-2.5 rounded-[1.2rem] border transition-all duration-500 group relative overflow-hidden backdrop-blur-xl ${
+              refreshing 
+              ? 'bg-primary/20 border-primary/40 text-primary' 
+              : 'bg-white/5 border-white/10 text-white hover:border-primary/50 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]'
+            }`}
           >
-            <span className="material-symbols-outlined text-sm">refresh</span>
-          </button>
+            {/* Animated Shine Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+            
+            <div className={`flex items-center justify-center ${refreshing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-700'}`}>
+              <span className="material-symbols-outlined text-sm font-bold">
+                {refreshing ? 'autorenew' : 'refresh'}
+              </span>
+            </div>
+            
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] antialiased">
+              {refreshing ? 'Synchronizing...' : 'Manual Sync'}
+            </span>
+
+            {/* Success Micro-dot */}
+            {!refreshing && (
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
+            )}
+          </motion.button>
         </div>
       </div>
 

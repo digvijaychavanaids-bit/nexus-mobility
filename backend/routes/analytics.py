@@ -16,6 +16,10 @@ router = APIRouter()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROCESSED_DATA = os.path.join(BASE_DIR, "data", "processed_sample.csv")
 CITY_SUMMARY = os.path.join(BASE_DIR, "data", "city_summary.json")
+LITE_DATASET_PATH = os.path.join(BASE_DIR, "data", "india_aqi_lite.csv")
+
+# Load Lite Dataset into memory for high-performance live sampling
+LITE_DATASET = pd.read_csv(LITE_DATASET_PATH) if os.path.exists(LITE_DATASET_PATH) else None
 
 CITY_ALIASES = {"Bangalore": "Bengaluru"}
 
@@ -74,18 +78,49 @@ def weekday_label(index: int) -> str:
 
 @router.get("/dashboard-stats")
 def get_dashboard_stats(city: str = "Delhi", current_user: dict = Depends(get_current_user)):
-    df = get_data()
+    # Fallback to profile and static data if simulation mode is disabled or sampling fails
     profile = get_city_profile(city)
     multiplier = get_city_multiplier(city)
+    df = get_data()
+    
+    # Real-Data Live Sampling Logic
+    if LITE_DATASET is not None:
+        canonical = canonical_city(city)
+        # Randomly sample a real historical row for this city
+        city_data = LITE_DATASET[LITE_DATASET["City"] == canonical]
+        if not city_data.empty:
+            sample = city_data.sample(n=1).iloc[0]
+            aqi = float(sample.get("PM2_5_ugm3", profile["pm25"]))
+            pm10 = float(sample.get("PM10_ugm3", profile["pm10"]))
+            co = float(sample.get("CO_ugm3", profile["co"]))
+            no2 = float(sample.get("NO2_ugm3", profile["no2"]))
+            
+            # Recalculate mobility status based on real sampled AQI
+            avg_traffic = float(df["Congestion"].mean()) * (aqi / profile["pm25"]) * multiplier if df is not None and not df.empty else 62.0 * multiplier
+            active_alerts = max(1, int(round((avg_traffic / 25.0) + (aqi / 80.0))))
+            
+            return {
+                "avg_traffic_index": round(min(avg_traffic, 100.0), 1),
+                "avg_aqi": round(aqi, 1),
+                "avg_pm10": round(pm10, 1),
+                "avg_co": round(co, 1),
+                "avg_no2": round(no2, 1),
+                "active_alerts": active_alerts,
+                "peak_hour": "18:00" if multiplier >= 1 else "17:00",
+                "is_live_sync": True
+            }
 
+    # Static fallback
     avg_traffic = float(df["Congestion"].mean()) * multiplier if df is not None and not df.empty else 62.0 * multiplier
-    active_alerts = max(1, int(round((avg_traffic / 25.0) + (profile["pm25"] / 80.0))))
-
     return {
         "avg_traffic_index": round(min(avg_traffic, 100.0), 1),
         "avg_aqi": round(profile["pm25"], 1),
-        "active_alerts": active_alerts,
+        "avg_pm10": profile["pm10"],
+        "avg_co": profile["co"],
+        "avg_no2": profile["no2"],
+        "active_alerts": max(1, int(round((avg_traffic / 25.0) + (profile["pm25"] / 80.0)))),
         "peak_hour": "18:00" if multiplier >= 1 else "17:00",
+        "is_live_sync": False
     }
 
 
@@ -329,3 +364,40 @@ def get_sector_stats(city: str = "Delhi", current_user: dict = Depends(get_curre
         })
         
     return sectors
+
+@router.get("/metropolitan-leaderboard")
+def get_metropolitan_leaderboard(current_user: dict = Depends(get_current_user)):
+    summary = get_cities_summary()
+    if summary is None or summary.empty:
+        return []
+
+    df = get_data()
+    base_congestion = float(df["Congestion"].mean()) if df is not None and not df.empty else 60.0
+
+    leaderboard = []
+    for _, row in summary.iterrows():
+        city = row["City"]
+        # Standardize city names
+        display_city = "Bengaluru" if city == "Bangalore" else city
+        
+        # Calculate city-specific metrics
+        profile = get_city_profile(city)
+        median_pm25 = max(float(summary["PM2_5_ugm3"].median()), 1.0)
+        multiplier = round(min(max(profile["pm25"] / median_pm25, 0.75), 1.45), 3)
+        
+        congestion = round(min(base_congestion * multiplier, 100.0), 1)
+        aqi = round(profile["pm25"], 1)
+        
+        # Mobility Score: higher is better (inverse of congestion and index)
+        mobility_score = round(100 - (congestion * 0.7 + (aqi/500 * 30)), 1)
+
+        leaderboard.append({
+            "city": display_city,
+            "congestion": congestion,
+            "aqi": aqi,
+            "mobility_score": mobility_score,
+            "status": "Optimal" if congestion < 40 else "Steady" if congestion < 70 else "Congested"
+        })
+
+    # Sort by Least Traffic (congestion ascending)
+    return sorted(leaderboard, key=lambda x: x["congestion"])

@@ -60,7 +60,28 @@ def default_db() -> dict[str, Any]:
             }
         ],
         "logs": [],
-        "notifications": [],
+        "notifications": [
+            {
+                "id": "notif-1",
+                "title": "Metropolitan Model Synchronized",
+                "message": "The Random Forest prediction engine has successfully calibrated with the india_aqi_lite dataset. Multi-city telemetry is now 100% active.",
+                "type": "success",
+                "timestamp": datetime.utcnow().isoformat(),
+                "user_email": "all",
+                "sender": "system@nexus-mobility.io",
+                "sender_role": "Core Protocol"
+            },
+            {
+                "id": "notif-2",
+                "title": "Annual Mobility Audit",
+                "message": "The latest traffic trends for Q1 2026 are now available for review in the Reports section.",
+                "type": "info",
+                "timestamp": datetime.utcnow().isoformat(),
+                "user_email": "all",
+                "sender": "analyst@smart.com",
+                "sender_role": "Lead Analyst"
+            }
+        ],
         "contacts": [],
         "user_activity": [],
         "bookmarks": [],
