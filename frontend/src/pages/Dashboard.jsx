@@ -85,10 +85,11 @@ const Dashboard = () => {
               onChange={(e) => setActiveCity(e.target.value)}
               className="bg-transparent text-xs font-black text-white uppercase tracking-wider outline-none cursor-pointer"
             >
-              <option value="Delhi">Delhi Sector</option>
-              <option value="Mumbai">Mumbai Sector</option>
-              <option value="Bangalore">Bangalore Sector</option>
-              <option value="Hyderabad">Hyderabad Sector</option>
+              <option value="Delhi" className="bg-slate-900">Delhi Sector</option>
+              <option value="Mumbai" className="bg-slate-900">Mumbai Sector</option>
+              <option value="Bengaluru" className="bg-slate-900">Bengaluru Sector</option>
+              <option value="Chennai" className="bg-slate-900">Chennai Sector</option>
+              <option value="Hyderabad" className="bg-slate-900">Hyderabad Sector</option>
             </select>
           </div>
 

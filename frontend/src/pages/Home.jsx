@@ -4,7 +4,6 @@ import AboutHero from '../components/About/AboutHero';
 import MissionStats from '../components/About/MissionStats';
 import CoreTechnologies from '../components/About/CoreTechnologies';
 import StrategicPartners from '../components/About/StrategicPartners';
-import VisionaryTeam from '../components/About/VisionaryTeam';
 import AboutFooter from '../components/About/AboutFooter';
 
 const Home = () => {
@@ -58,7 +57,7 @@ const Home = () => {
 
         <StrategicPartners />
         
-        <VisionaryTeam />
+
       </motion.main>
       
       <AboutFooter />

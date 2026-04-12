@@ -1,10 +1,10 @@
 const StrategicPartners = () => {
   const partners = [
-    { name: 'LONDON', icon: 'location_city', color: 'text-primary' },
-    { name: 'SINGAPORE', icon: 'apartment', color: 'text-tertiary' },
-    { name: 'BERLIN', icon: 'domain', color: 'text-secondary' },
-    { name: 'OSLO', icon: 'potted_plant', color: 'text-primary' },
-    { name: 'TOKYO', icon: 'nightlight', color: 'text-error' },
+    { name: 'DELHI', icon: 'location_city', color: 'text-primary' },
+    { name: 'MUMBAI', icon: 'apartment', color: 'text-tertiary' },
+    { name: 'BENGALURU', icon: 'domain', color: 'text-secondary' },
+    { name: 'CHENNAI', icon: 'potted_plant', color: 'text-primary' },
+    { name: 'HYDERABAD', icon: 'nightlight', color: 'text-error' },
   ];
 
   return (

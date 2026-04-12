@@ -26,7 +26,7 @@ const MissionStats = () => {
       <div className="bg-primary-container p-10 rounded-2xl text-on-primary-container flex flex-col justify-between shadow-2xl shadow-primary/10 group hover:shadow-primary/20 active:scale-95 transition-all">
         <span className="material-symbols-outlined text-7xl opacity-20 group-hover:rotate-12 transition-transform duration-700 leading-none pointer-events-none">public</span>
         <div className="py-6 relative z-10">
-          <h4 className="text-6xl font-black font-headline tracking-tighter antialiased leading-none">24</h4>
+          <h4 className="text-6xl font-black font-headline tracking-tighter antialiased leading-none">5</h4>
           <p className="text-sm font-black uppercase tracking-widest leading-tight mt-3">Smart Cities Integrated</p>
         </div>
         <div className="pt-6 border-t border-on-primary-container/20 relative z-10">
