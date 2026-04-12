@@ -8,6 +8,8 @@ import BroadcastConsole from '../components/Admin/BroadcastConsole';
 import { getCurrentRole } from '../services/session';
 
 
+import MetropolitanLeaderboard from '../components/Dashboard/MetropolitanLeaderboard';
+
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -120,6 +122,7 @@ const Dashboard = () => {
             city={activeCity}
             onRefresh={() => fetchDashboardData(true)} 
           />
+          <MetropolitanLeaderboard />
         </div>
       </div>
     </motion.div>

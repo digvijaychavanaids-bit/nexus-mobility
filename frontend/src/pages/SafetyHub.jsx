@@ -20,9 +20,9 @@ const SafetyHub = () => {
         setProfile({
           city: activeCity,
           pm25: res.data.avg_aqi,
-          pm10: 90, // Defaults or could be from compare-cities
-          co: 380,
-          no2: 25
+          pm10: res.data.avg_pm10 || 90,
+          co: res.data.avg_co || 380,
+          no2: res.data.avg_no2 || 25
         });
       } catch (err) {
         console.error("Failed to load safety data");

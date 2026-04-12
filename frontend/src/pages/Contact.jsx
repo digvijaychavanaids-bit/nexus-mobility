@@ -132,7 +132,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Emergency Uplink</p>
-                  <p className="text-sm font-black text-on-surface tracking-tight uppercase">ops@nexus-mobility.io</p>
+                  <p className="text-sm font-black text-on-surface tracking-tight uppercase">pkgraphics99@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-5 group cursor-pointer">
