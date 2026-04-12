@@ -21,7 +21,7 @@ const HelpHero = () => {
         <h2 className="text-4xl font-black font-headline tracking-tighter text-on-surface antialiased leading-tight">
           How can we assist your city planning today?
         </h2>
-        <p className="text-on-surface-variant font-medium text-sm leading-relaxed max-w-md mx-auto opacity-80">
+        <p className="text-on-surface font-medium text-sm leading-relaxed max-w-md mx-auto opacity-80">
           Access detailed tutorials, technical documentation, and community-driven solutions for the Nexus Mobility ecosystem.
         </p>
         
@@ -34,7 +34,7 @@ const HelpHero = () => {
               }`}
             >
               <span className={`material-symbols-outlined text-2xl mb-2 transition-transform group-hover/link:scale-110 ${
-                link.active ? 'text-primary' : 'text-on-surface-variant'
+                link.active ? 'text-primary' : 'text-on-surface'
               }`}>
                 {link.icon}
               </span>
@@ -48,6 +48,8 @@ const HelpHero = () => {
 };
 
 export default HelpHero;
+
+
 
 
 

@@ -9,7 +9,7 @@ const AboutFooter = () => {
           <span className="text-sm font-black tracking-widest text-on-surface uppercase antialiased">Nexus Mobility © 2026</span>
         </div>
         
-        <div className="flex gap-12 text-[10px] text-on-surface-variant font-black uppercase tracking-[0.3em] opacity-60">
+        <div className="flex gap-12 text-[10px] text-on-surface font-black uppercase tracking-[0.3em] opacity-60">
           <a className="hover:text-primary transition-colors cursor-pointer" href="#">Privacy Policy</a>
           <a className="hover:text-primary transition-colors cursor-pointer" href="#">System Status</a>
           <a className="hover:text-primary transition-colors cursor-pointer" href="#">API Documentation</a>
@@ -20,6 +20,8 @@ const AboutFooter = () => {
 };
 
 export default AboutFooter;
+
+
 
 
 

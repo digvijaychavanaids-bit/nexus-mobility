@@ -31,7 +31,7 @@ const CityPulse = () => {
               <option className="bg-surface-container">Chennai</option>
               <option className="bg-surface-container">Hyderabad</option>
             </select>
-            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none group-hover:text-primary transition-colors text-sm">
+            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface pointer-events-none group-hover:text-primary transition-colors text-sm">
               expand_more
             </span>
           </div>
@@ -49,7 +49,7 @@ const CityPulse = () => {
               <span className="material-symbols-outlined text-sm text-primary">analytics</span>
               Trend Validation
             </h3>
-            <p className="text-xs text-on-surface-variant leading-relaxed font-medium">
+            <p className="text-xs text-on-surface leading-relaxed font-medium">
               Municipal intelligence is aggregated every 60 minutes. All predictions are derived directly from physical transit sensors deployed across {activeCity}.
             </p>
           </div>
@@ -61,7 +61,7 @@ const CityPulse = () => {
             <div className="flex items-center justify-between mb-10">
               <div>
                 <h2 className="text-2xl font-black font-headline text-on-surface uppercase tracking-tighter antialiased">Municipal Grid</h2>
-                <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] mt-2 italic">Spatial Load across metropolitan divisions</p>
+                <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] mt-2 italic">Spatial Load across metropolitan divisions</p>
               </div>
               <div className="flex gap-2">
                  <div className="flex items-center gap-1.5 bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
@@ -84,6 +84,8 @@ const CityPulse = () => {
 };
 
 export default CityPulse;
+
+
 
 
 

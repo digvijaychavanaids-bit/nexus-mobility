@@ -63,7 +63,7 @@ const HotspotTable = ({ data: apiData }) => {
       <div className="px-10 py-8 flex items-center justify-between border-b border-on-surface/5">
         <div>
           <h3 className="text-xl font-black text-on-surface uppercase tracking-tight leading-none">Active Congestion Hotspots</h3>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest mt-2 opacity-60">Prioritized intersections requiring optimization</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-widest mt-2 opacity-60">Prioritized intersections requiring optimization</p>
         </div>
         <button 
           onClick={handleExport}
@@ -78,7 +78,7 @@ const HotspotTable = ({ data: apiData }) => {
       <div className="w-full overflow-x-auto">
         <table className="w-full text-left font-body">
           <thead>
-            <tr className="bg-white/[0.02] text-on-surface-variant text-[10px] font-black uppercase tracking-[0.2em] opacity-40 selection:bg-transparent">
+            <tr className="bg-white/[0.02] text-on-surface text-[10px] font-black uppercase tracking-[0.2em] opacity-40 selection:bg-transparent">
               <th className="px-10 py-4 cursor-pointer hover:text-on-surface" onClick={() => requestSort('name')}>Intersection Node</th>
               <th className="px-10 py-4 cursor-pointer hover:text-on-surface" onClick={() => requestSort('congestion')}>Avg Delay / Load</th>
               <th className="px-10 py-4 cursor-pointer hover:text-on-surface" onClick={() => requestSort('throughput')}>Throughput/hr</th>
@@ -94,7 +94,7 @@ const HotspotTable = ({ data: apiData }) => {
                     <div className={`w-2.5 h-2.5 rounded-full ${spot.health === 'Degraded' ? 'bg-error animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]' : spot.health === 'Optimal' ? 'bg-tertiary shadow-[0_0_10px_rgba(112,216,200,0.5)]' : 'bg-primary'}`}></div>
                     <div>
                       <div className="font-black text-on-surface uppercase tracking-tight">{spot.name}</div>
-                      <div className="text-[9px] text-on-surface-variant font-black uppercase tracking-widest opacity-40 mt-0.5">{spot.district}</div>
+                      <div className="text-[9px] text-on-surface font-black uppercase tracking-widest opacity-40 mt-0.5">{spot.district}</div>
                     </div>
                   </div>
                 </td>
@@ -129,6 +129,8 @@ const HotspotTable = ({ data: apiData }) => {
 };
 
 export default HotspotTable;
+
+
 
 
 

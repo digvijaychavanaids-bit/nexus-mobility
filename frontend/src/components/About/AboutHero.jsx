@@ -8,7 +8,7 @@ const AboutHero = () => {
         <h2 className="text-5xl lg:text-7xl font-headline font-black tracking-tighter text-on-surface leading-[1.1] antialiased">
           Architecting the <span className="text-primary italic">Pulse</span> of Modern Cities.
         </h2>
-        <p className="text-lg text-on-surface-variant leading-relaxed max-w-2xl font-medium opacity-90">
+        <p className="text-lg text-on-surface leading-relaxed max-w-2xl font-medium opacity-90">
           Nexus Mobility is more than a dashboard. It's a neural infrastructure layer for urban environments, translating trillions of data points into fluid, human-centric movement patterns.
         </p>
         <div className="flex gap-4 pt-4">
@@ -28,7 +28,7 @@ const AboutHero = () => {
         </div>
         <div className="absolute -bottom-8 -left-8 bg-surface-container-high/95 backdrop-blur-2xl p-6 rounded-2xl border border-on-surface/10 shadow-2xl max-w-[260px] z-10">
           <p className="text-primary font-black text-4xl font-headline tracking-tighter mb-2">99.8%</p>
-          <p className="text-[10px] text-on-surface-variant uppercase font-black tracking-widest opacity-80">Prediction Accuracy</p>
+          <p className="text-[10px] text-on-surface uppercase font-black tracking-widest opacity-80">Prediction Accuracy</p>
           <div className="mt-4 h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
              <div className="h-full bg-primary w-[99.8%] shadow-[0_0_8px_rgba(148,204,255,0.4)]"></div>
           </div>
@@ -39,6 +39,8 @@ const AboutHero = () => {
 };
 
 export default AboutHero;
+
+
 
 
 

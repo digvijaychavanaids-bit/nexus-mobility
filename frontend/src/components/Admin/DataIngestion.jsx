@@ -53,7 +53,7 @@ const DataIngestion = () => {
           <span className="material-symbols-outlined text-4xl text-primary leading-none">cloud_upload</span>
         </div>
         <h3 className="text-xl font-black text-on-surface mb-2 uppercase tracking-tighter antialiased">Ingest Data</h3>
-        <p className="text-on-surface-variant text-xs mb-8 px-4 font-bold uppercase tracking-widest leading-relaxed opacity-60">
+        <p className="text-on-surface text-xs mb-8 px-4 font-bold uppercase tracking-widest leading-relaxed opacity-60">
           Upload a validated CSV dataset for backend review and archival.
         </p>
 
@@ -80,10 +80,10 @@ const DataIngestion = () => {
             className="hidden"
             onChange={(e) => updateSelectedFile(e.target.files)}
           />
-          <span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-3xl mb-2 leading-none">
+          <span className="material-symbols-outlined text-on-surface group-hover:text-primary transition-colors text-3xl mb-2 leading-none">
             upload_file
           </span>
-          <p className="text-[10px] text-on-surface-variant group-hover:text-slate-300 font-black uppercase tracking-widest">
+          <p className="text-[10px] text-on-surface group-hover:text-on-surface font-black uppercase tracking-widest">
             Drag a CSV here or <span className="text-primary font-black">browse</span>
           </p>
           <p className="text-[8px] text-on-surface mt-2 font-bold uppercase tracking-widest">
@@ -122,6 +122,8 @@ const DataIngestion = () => {
 };
 
 export default DataIngestion;
+
+
 
 
 

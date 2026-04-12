@@ -52,14 +52,14 @@ const BroadcastConsole = () => {
         </div>
         <div>
           <h3 className="text-sm font-black text-on-surface uppercase tracking-widest leading-none">Broadcast Console</h3>
-          <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mt-1 opacity-60 italic">Emergency & Policy Directives</p>
+          <p className="text-[10px] text-on-surface font-bold uppercase tracking-widest mt-1 opacity-60 italic">Emergency & Policy Directives</p>
         </div>
       </div>
 
       <div className="space-y-4 relative z-10">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Directive Class</label>
+            <label className="text-[9px] font-black text-on-surface uppercase tracking-widest ml-1">Directive Class</label>
             <select 
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -72,7 +72,7 @@ const BroadcastConsole = () => {
             </select>
           </div>
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Target Personnel</label>
+            <label className="text-[9px] font-black text-on-surface uppercase tracking-widest ml-1">Target Personnel</label>
             <select 
               value={target}
               onChange={(e) => setTarget(e.target.value)}
@@ -86,24 +86,24 @@ const BroadcastConsole = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Subject</label>
+          <label className="text-[9px] font-black text-on-surface uppercase tracking-widest ml-1">Subject</label>
           <input 
             type="text" 
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="E.g. System Maintenance, Peak Congestion..."
-            className="w-full bg-surface-container-highest/20 border border-on-surface/10 rounded-xl px-4 py-3 text-xs font-bold text-on-surface outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/40"
+            className="w-full bg-surface-container-highest/20 border border-on-surface/10 rounded-xl px-4 py-3 text-xs font-bold text-on-surface outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface/40"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Message Content</label>
+          <label className="text-[9px] font-black text-on-surface uppercase tracking-widest ml-1">Message Content</label>
           <textarea 
             rows={3}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Provide detailed instructions or alerts here..."
-            className="w-full bg-surface-container-highest/20 border border-on-surface/10 rounded-xl px-4 py-3 text-xs font-bold text-on-surface outline-none focus:ring-1 focus:ring-primary transition-all resize-none placeholder:text-on-surface-variant/40"
+            className="w-full bg-surface-container-highest/20 border border-on-surface/10 rounded-xl px-4 py-3 text-xs font-bold text-on-surface outline-none focus:ring-1 focus:ring-primary transition-all resize-none placeholder:text-on-surface/40"
           ></textarea>
         </div>
 
@@ -131,6 +131,8 @@ const BroadcastConsole = () => {
 };
 
 export default BroadcastConsole;
+
+
 
 
 

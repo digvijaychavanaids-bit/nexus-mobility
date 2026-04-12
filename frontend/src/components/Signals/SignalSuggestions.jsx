@@ -27,7 +27,7 @@ const SuggestionCard = ({ title, id, status, current, recommended, type }) => {
       <div className="flex justify-between items-start relative z-10">
         <div className="space-y-1.5 flex-1 min-w-0">
           <h4 className="text-base font-black text-on-surface uppercase tracking-tight truncate group-hover:text-primary transition-colors">{title}</h4>
-          <p className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.2em] mt-1 opacity-50">ID_NODE: {id.slice(-8).toUpperCase()} • {status}</p>
+          <p className="text-[11px] text-on-surface font-black uppercase tracking-[0.2em] mt-1 opacity-50">ID_NODE: {id.slice(-8).toUpperCase()} • {status}</p>
         </div>
         <div className={`p-2.5 rounded-2xl bg-surface-container border border-on-surface/10 ${colorClass.split(' ')[0]} shadow-xl`}>
            <span className="material-symbols-outlined text-xl leading-none">
@@ -38,8 +38,8 @@ const SuggestionCard = ({ title, id, status, current, recommended, type }) => {
 
       <div className="grid grid-cols-2 gap-4 relative z-10">
         <div className="space-y-1.5">
-          <span className="text-[10px] text-on-surface-variant uppercase font-black tracking-[0.2em] opacity-40">Current Cycle</span>
-          <div className="text-xl font-black text-slate-300 tabular-nums">{current}s</div>
+          <span className="text-[10px] text-on-surface uppercase font-black tracking-[0.2em] opacity-40">Current Cycle</span>
+          <div className="text-xl font-black text-on-surface tabular-nums">{current}s</div>
         </div>
         <div className="space-y-1.5 pl-4 border-l border-on-surface/10">
           <span className="text-[10px] text-primary uppercase font-black tracking-[0.2em] opacity-70">Proposed</span>
@@ -107,7 +107,7 @@ const SignalSuggestions = ({ city, signals, loading }) => {
       <div className="flex items-center justify-between mb-8">
         <div className="space-y-1">
           <h3 className="text-sm font-black text-on-surface uppercase tracking-[0.3em] leading-none">Neural Mesh Proposals</h3>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-30">Autonomous Modulation Queue</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] opacity-30">Autonomous Modulation Queue</p>
         </div>
         <div className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 flex items-center gap-2">
            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -141,7 +141,7 @@ const SignalSuggestions = ({ city, signals, loading }) => {
                animate={{ opacity: 1 }}
                className="py-32 text-center"
             >
-              <span className="text-xs font-black text-on-surface-variant uppercase tracking-[0.4em] opacity-40">No active proposals for {city}</span>
+              <span className="text-xs font-black text-on-surface uppercase tracking-[0.4em] opacity-40">No active proposals for {city}</span>
             </motion.div>
           ) : (
             signals.map((s, idx) => (
@@ -160,7 +160,7 @@ const SignalSuggestions = ({ city, signals, loading }) => {
       </div>
 
       <div className="mt-10">
-        <button className="w-full text-[10px] font-black text-on-surface-variant flex items-center justify-center gap-3 hover:text-on-surface uppercase tracking-[0.2em] transition-all bg-on-surface/5 py-4 rounded-2xl border border-on-surface/5 hover:bg-on-surface/10 group">
+        <button className="w-full text-[10px] font-black text-on-surface flex items-center justify-center gap-3 hover:text-on-surface uppercase tracking-[0.2em] transition-all bg-on-surface/5 py-4 rounded-2xl border border-on-surface/5 hover:bg-on-surface/10 group">
           View Mesh Metadata for {city}
           <span className="material-symbols-outlined text-base group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
         </button>
@@ -170,6 +170,8 @@ const SignalSuggestions = ({ city, signals, loading }) => {
 };
 
 export default SignalSuggestions;
+
+
 
 
 

@@ -3,7 +3,7 @@ const PredictionHero = () => {
     { label: 'Prediction Accuracy', value: '98.4%', icon: 'verified', color: 'text-sky-400' },
     { label: 'Active Sensors', value: '1,204', icon: 'sensors', color: 'text-primary' },
     { label: 'Emission Reduction', value: '-14.2%', icon: 'eco', color: 'text-tertiary' },
-    { label: 'Last Update', value: '0.4s ago', icon: 'update', color: 'text-on-surface-variant' },
+    { label: 'Last Update', value: '0.4s ago', icon: 'update', color: 'text-on-surface' },
   ];
 
   return (
@@ -11,7 +11,7 @@ const PredictionHero = () => {
       <div className="space-y-3">
         <span className="text-sky-400 font-headline font-bold text-sm tracking-widest uppercase">Predictive Intelligence</span>
         <h2 className="text-4xl font-headline font-extrabold text-on-surface tracking-tight leading-tight">Mobility Forecasting Engine</h2>
-        <p className="text-on-surface-variant max-w-2xl font-medium leading-relaxed opacity-90">
+        <p className="text-on-surface max-w-2xl font-medium leading-relaxed opacity-90">
           Leverage neural network-driven analysis to anticipate urban flow patterns, congestion risks, and environmental impact before they occur.
         </p>
       </div>
@@ -23,7 +23,7 @@ const PredictionHero = () => {
               <span className={`material-symbols-outlined text-base ${stat.color} opacity-70 group-hover:opacity-100 transition-opacity`}>
                 {stat.icon}
               </span>
-              <span className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest">{stat.label}</span>
+              <span className="text-[9px] font-black text-on-surface uppercase tracking-widest">{stat.label}</span>
             </div>
             <p className="text-2xl font-headline font-black text-on-surface tracking-tighter group-hover:text-sky-300 transition-colors">
               {stat.value}
@@ -36,6 +36,8 @@ const PredictionHero = () => {
 };
 
 export default PredictionHero;
+
+
 
 
 

@@ -32,7 +32,7 @@ const TrafficHero = ({ data, filters, setFilters }) => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-sky-400">Traffic Analysis</span>
         </h2>
         
-        <p className="text-on-surface-variant leading-relaxed font-bold text-sm lg:text-base opacity-80 max-w-xl">
+        <p className="text-on-surface leading-relaxed font-bold text-sm lg:text-base opacity-80 max-w-xl">
           {data ? `Synchronized telemetry from 142 transit nodes in ${filters.city}. Currently identifying ${data.active_hotspots || 8} critical congestion hotspots with a system-wide resolution of 2.4m.` : 
           "Visualizing arterial density and multimodal flow patterns across the metropolitan transit network. Analyze bottlenecks and historical trends to optimize signaling."}
         </p>
@@ -47,7 +47,7 @@ const TrafficHero = ({ data, filters, setFilters }) => {
               className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-500 ${
                 filters.range === r.id 
                   ? 'bg-primary text-on-surface shadow-lg shadow-primary/20 scale-105' 
-                  : 'text-on-surface-variant hover:text-on-surface hover:bg-on-surface/5'
+                  : 'text-on-surface hover:text-on-surface hover:bg-on-surface/5'
               }`}
             >
               {r.label}
@@ -90,7 +90,7 @@ const TrafficHero = ({ data, filters, setFilters }) => {
 
               <div className="mb-10">
                 <h3 className="text-2xl font-black text-on-surface uppercase tracking-tighter mb-2">Sensor Configuration</h3>
-                <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Adjust regional telemetry parameters</p>
+                <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Adjust regional telemetry parameters</p>
               </div>
 
               <div className="space-y-8">
@@ -145,6 +145,8 @@ const TrafficHero = ({ data, filters, setFilters }) => {
 };
 
 export default TrafficHero;
+
+
 
 
 

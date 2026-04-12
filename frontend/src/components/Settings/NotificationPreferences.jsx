@@ -35,7 +35,7 @@ const NotificationPreferences = () => {
         </div>
         <div>
           <h3 className="text-lg font-black text-on-surface font-headline tracking-tighter uppercase antialiased">Alert Subscriptions</h3>
-          <p className="text-on-surface-variant text-[10px] uppercase font-black tracking-widest leading-none">Telemetry Broadcasts</p>
+          <p className="text-on-surface text-[10px] uppercase font-black tracking-widest leading-none">Telemetry Broadcasts</p>
         </div>
       </div>
       
@@ -44,7 +44,7 @@ const NotificationPreferences = () => {
           <div key={i} className={`flex items-start justify-between group/item transition-opacity ${alert.disabled ? 'opacity-40' : 'opacity-100 hover:opacity-100'}`}>
             <div className="space-y-1">
               <p className="text-sm font-black text-on-surface uppercase tracking-tight">{alert.title}</p>
-              <p className="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest leading-relaxed opacity-60 max-w-[240px]">{alert.desc}</p>
+              <p className="text-[10px] text-on-surface uppercase font-bold tracking-widest leading-relaxed opacity-60 max-w-[240px]">{alert.desc}</p>
             </div>
             <div className="relative">
               <input 
@@ -64,6 +64,8 @@ const NotificationPreferences = () => {
 };
 
 export default NotificationPreferences;
+
+
 
 
 

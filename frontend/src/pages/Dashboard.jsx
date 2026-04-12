@@ -87,7 +87,7 @@ const Dashboard = () => {
 
         <div className="flex items-center gap-4">
           <div className="bg-surface-container-highest/20 border border-on-surface/10 rounded-xl px-4 py-2 flex items-center gap-3">
-            <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Active Sector</span>
+            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">Active Sector</span>
             <select 
               value={activeCity}
               onChange={(e) => setActiveCity(e.target.value)}
@@ -158,6 +158,8 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
 
 
 

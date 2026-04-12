@@ -37,7 +37,7 @@ const SecuritySettings = () => {
           </div>
           <div>
             <h3 className="text-lg font-black text-on-surface font-headline tracking-tighter uppercase antialiased">Security & Access</h3>
-            <p className="text-on-surface-variant text-[10px] uppercase font-black tracking-widest leading-none">Authentication Protocols</p>
+            <p className="text-on-surface text-[10px] uppercase font-black tracking-widest leading-none">Authentication Protocols</p>
           </div>
         </div>
         <button 
@@ -57,7 +57,7 @@ const SecuritySettings = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
         <div className="space-y-2 md:col-span-2">
-          <label className="text-[10px] font-black text-on-surface-variant tracking-widest uppercase opacity-60">Current Access Cipher</label>
+          <label className="text-[10px] font-black text-on-surface tracking-widest uppercase opacity-60">Current Access Cipher</label>
           <input 
             className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface focus:ring-1 focus:ring-primary focus:bg-surface-container-highest transition-all outline-none"
             placeholder="••••••••••••" 
@@ -67,7 +67,7 @@ const SecuritySettings = () => {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-on-surface-variant tracking-widest uppercase opacity-60">New Access Cipher</label>
+          <label className="text-[10px] font-black text-on-surface tracking-widest uppercase opacity-60">New Access Cipher</label>
           <input 
             className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface focus:ring-1 focus:ring-primary transition-all outline-none"
             placeholder="Enter new code"
@@ -77,7 +77,7 @@ const SecuritySettings = () => {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-on-surface-variant tracking-widest uppercase opacity-60">Confirm New Cipher</label>
+          <label className="text-[10px] font-black text-on-surface tracking-widest uppercase opacity-60">Confirm New Cipher</label>
           <input 
             className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface focus:ring-1 focus:ring-primary transition-all outline-none"
             placeholder="Re-enter new code"
@@ -92,6 +92,8 @@ const SecuritySettings = () => {
 };
 
 export default SecuritySettings;
+
+
 
 
 

@@ -113,7 +113,7 @@ const Login = () => {
           <h1 className="text-3xl font-headline font-black text-on-surface uppercase tracking-tighter leading-none">
             NEXUS <span className="text-primary italic">MOBILITY</span>
           </h1>
-          <p className="text-[9px] text-on-surface-variant font-bold uppercase tracking-[0.3em] opacity-60">
+          <p className="text-[9px] text-on-surface font-bold uppercase tracking-[0.3em] opacity-60">
             Municipal Grid Command Center
           </p>
         </div>
@@ -132,7 +132,7 @@ const Login = () => {
                   className="space-y-4"
                 >
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-black uppercase tracking-widest text-on-surface-variant ml-1">Identity Name</label>
+                    <label className="text-[9px] font-black uppercase tracking-widest text-on-surface ml-1">Identity Name</label>
                     <input 
                       type="text" 
                       required
@@ -143,7 +143,7 @@ const Login = () => {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-black uppercase tracking-widest text-on-surface-variant ml-1">Grid Assignment</label>
+                    <label className="text-[9px] font-black uppercase tracking-widest text-on-surface ml-1">Grid Assignment</label>
                     <select 
                       className="w-full bg-on-surface/5 border border-on-surface/10 rounded-xl px-4 py-3 text-sm text-on-surface outline-none focus:ring-1 focus:ring-primary/30 appearance-none cursor-pointer"
                       value={formData.role}
@@ -159,7 +159,7 @@ const Login = () => {
             </AnimatePresence>
 
             <div className="space-y-1.5">
-              <label className="text-[9px] font-black uppercase tracking-widest text-on-surface-variant ml-1">Email Endpoint</label>
+              <label className="text-[9px] font-black uppercase tracking-widest text-on-surface ml-1">Email Endpoint</label>
               <div className="relative">
                 <input 
                   type="email" 
@@ -178,7 +178,7 @@ const Login = () => {
             {authMode !== 'forgot' && (
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center px-1">
-                  <label className="text-[9px] font-black uppercase tracking-widest text-on-surface-variant">Security Key</label>
+                  <label className="text-[9px] font-black uppercase tracking-widest text-on-surface">Security Key</label>
                   {authMode === 'login' && (
                     <button 
                       type="button"
@@ -243,7 +243,7 @@ const Login = () => {
                 setError(null); 
                 setNotice(null); 
               }}
-              className="text-[10px] font-bold text-on-surface-variant hover:text-on-surface uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
+              className="text-[10px] font-bold text-on-surface hover:text-on-surface uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
             >
               <span className="opacity-50">{authMode === 'register' ? "Already have a node?" : "Need grid access?"}</span>
               <span className="text-primary italic font-black">{authMode === 'register' ? "Authenticate" : "Requisition"}</span>
@@ -252,7 +252,7 @@ const Login = () => {
             {authMode === 'forgot' && (
               <button 
                 onClick={() => setAuthMode('login')}
-                className="text-[10px] font-bold text-on-surface-variant hover:text-on-surface uppercase tracking-widest"
+                className="text-[10px] font-bold text-on-surface hover:text-on-surface uppercase tracking-widest"
               >
                 Return to Login
               </button>
@@ -280,6 +280,8 @@ const Login = () => {
 };
 
 export default Login;
+
+
 
 
 

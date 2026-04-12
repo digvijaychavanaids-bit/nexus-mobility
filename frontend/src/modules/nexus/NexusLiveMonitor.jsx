@@ -21,7 +21,7 @@ const NexusLiveMonitor = ({ city = "Delhi", stats }) => {
         </div>
         
         <div className="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-on-surface/5">
-          <p className="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em]">
+          <p className="text-[9px] font-black text-on-surface uppercase tracking-[0.2em]">
             Vehicles: {stats?.active_vehicles?.toLocaleString() || '—'}
           </p>
         </div>
@@ -30,22 +30,22 @@ const NexusLiveMonitor = ({ city = "Delhi", stats }) => {
       {/* HUD Bottom Bar */}
       <div className="absolute bottom-0 left-0 right-0 z-30 p-3 pointer-events-none flex justify-between items-end">
         <div className="bg-black/40 backdrop-blur-md px-3 py-2 rounded-lg border border-on-surface/5">
-          <p className="text-[8px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-1.5">Traffic Metrics</p>
+          <p className="text-[8px] font-black text-on-surface uppercase tracking-[0.2em] mb-1.5">Traffic Metrics</p>
           <div className="flex gap-3">
             <div>
-              <p className="text-[7px] font-black text-on-surface-variant uppercase mb-0.5">Load</p>
+              <p className="text-[7px] font-black text-on-surface uppercase mb-0.5">Load</p>
               <p className="text-xs font-black text-primary">{trafficLoad}%</p>
             </div>
             <div className="w-px bg-on-surface/5" />
             <div>
-              <p className="text-[7px] font-black text-on-surface-variant uppercase mb-0.5">Speed</p>
+              <p className="text-[7px] font-black text-on-surface uppercase mb-0.5">Speed</p>
               <p className="text-xs font-black text-tertiary">{stats?.velocity || '—'}</p>
             </div>
           </div>
         </div>
         
         <div className="bg-black/40 backdrop-blur-md px-3 py-2 rounded-lg border border-on-surface/5">
-          <p className="text-[8px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-1">Status</p>
+          <p className="text-[8px] font-black text-on-surface uppercase tracking-[0.2em] mb-1">Status</p>
           <div className="flex items-center gap-2">
             <div className={`w-1.5 h-1.5 rounded-full ${activeAlerts > 5 ? 'bg-error' : activeAlerts > 0 ? 'bg-yellow-500' : 'bg-green-500'}`} />
             <p className="text-xs font-black text-on-surface">
@@ -68,6 +68,8 @@ const NexusLiveMonitor = ({ city = "Delhi", stats }) => {
 };
 
 export default NexusLiveMonitor;
+
+
 
 
 

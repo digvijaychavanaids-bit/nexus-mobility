@@ -66,21 +66,21 @@ const ReportGeneratorDrawer = ({ isOpen, onClose }) => {
           >
             <div className="flex items-center justify-between mb-10">
               <h3 className="text-2xl font-headline font-black text-on-surface tracking-tight leading-none uppercase">Generate Report</h3>
-              <button onClick={onClose} className="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+              <button onClick={onClose} className="p-2 text-on-surface hover:text-on-surface transition-colors">
                 <span className="material-symbols-outlined text-2xl leading-none">close</span>
               </button>
             </div>
 
             <div className="space-y-8">
               <div>
-                <label className="block text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-3">City</label>
+                <label className="block text-[10px] font-black text-on-surface uppercase tracking-widest mb-3">City</label>
                 <div className="grid grid-cols-2 gap-3">
                   {cities.map((item) => (
                     <button
                       key={item}
                       onClick={() => setCity(item)}
                       className={`rounded-xl border px-4 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${
-                        city === item ? 'border-primary bg-primary/10 text-primary' : 'border-on-surface/5 bg-surface-container-highest text-on-surface-variant'
+                        city === item ? 'border-primary bg-primary/10 text-primary' : 'border-on-surface/5 bg-surface-container-highest text-on-surface'
                       }`}
                     >
                       {item}
@@ -90,7 +90,7 @@ const ReportGeneratorDrawer = ({ isOpen, onClose }) => {
               </div>
 
               <div>
-                <label className="block text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-3">
+                <label className="block text-[10px] font-black text-on-surface uppercase tracking-widest mb-3">
                   Minimum congestion ({minCongestion}%)
                 </label>
                 <input
@@ -104,7 +104,7 @@ const ReportGeneratorDrawer = ({ isOpen, onClose }) => {
               </div>
 
               <div>
-                <label className="block text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-3">
+                <label className="block text-[10px] font-black text-on-surface uppercase tracking-widest mb-3">
                   Maximum congestion ({maxCongestion}%)
                 </label>
                 <input
@@ -119,7 +119,7 @@ const ReportGeneratorDrawer = ({ isOpen, onClose }) => {
 
               <div className="rounded-2xl border border-on-surface/5 bg-surface-container-highest p-5">
                 <p className="text-[10px] font-black uppercase tracking-widest text-on-surface">Export format</p>
-                <p className="mt-2 text-sm font-bold text-on-surface-variant">
+                <p className="mt-2 text-sm font-bold text-on-surface">
                   CSV report with congestion, pollution, weather, and hourly trend columns.
                 </p>
               </div>
@@ -153,6 +153,8 @@ const ReportGeneratorDrawer = ({ isOpen, onClose }) => {
 };
 
 export default ReportGeneratorDrawer;
+
+
 
 
 

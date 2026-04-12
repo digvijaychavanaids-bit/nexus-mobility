@@ -69,7 +69,7 @@ const DynamicGridMap = React.memo(({
           <span className="text-[10px] font-black text-on-surface uppercase tracking-[0.2em]">Neural Mesh Tracking: {city.toUpperCase()}</span>
         </div>
         <div className="flex items-center gap-3 bg-surface-container/40 backdrop-blur-3xl px-4 py-2 rounded-full border border-on-surface/10 ring-1 ring-white/5 w-fit">
-          <span className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.2em] opacity-60">Resolution: 1.4m GSD</span>
+          <span className="text-[9px] font-black text-on-surface uppercase tracking-[0.2em] opacity-60">Resolution: 1.4m GSD</span>
         </div>
       </div>
 
@@ -85,7 +85,7 @@ const DynamicGridMap = React.memo(({
           className="bg-surface-container-lowest/80 backdrop-blur-2xl px-6 py-5 rounded-[1.5rem] border border-on-surface/10 shadow-3xl min-w-[180px] ring-1 ring-white/5 cursor-default"
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest">Metropolitan Load</span>
+            <span className="text-[9px] font-black text-on-surface uppercase tracking-widest">Metropolitan Load</span>
             <span className="material-symbols-outlined text-sm text-primary">analytics</span>
           </div>
           <div className="text-3xl font-black text-on-surface tracking-tighter tabular-nums flex items-baseline gap-1">
@@ -105,7 +105,7 @@ const DynamicGridMap = React.memo(({
           className="bg-surface-container-lowest/80 backdrop-blur-2xl px-6 py-5 rounded-[1.5rem] border border-on-surface/10 shadow-3xl min-w-[180px] ring-1 ring-white/5 cursor-default"
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest">Active Anomalies</span>
+            <span className="text-[9px] font-black text-on-surface uppercase tracking-widest">Active Anomalies</span>
             <span className="material-symbols-outlined text-sm text-error">warning</span>
           </div>
           <div className={`text-3xl font-black tracking-tighter tabular-nums ${activeAlerts > 5 ? 'text-error' : 'text-on-surface'}`}>
@@ -128,6 +128,8 @@ const DynamicGridMap = React.memo(({
 });
 
 export default DynamicGridMap;
+
+
 
 
 

@@ -15,7 +15,7 @@ const TrafficAssistant = () => {
                 </div>
             </div>
 
-            <p className="text-[10px] leading-relaxed text-on-surface-variant font-medium">
+            <p className="text-[10px] leading-relaxed text-on-surface font-medium">
                 Pattern detection indicates a bottleneck at Sector 07. Heavy industrial load (+18%) correlated with local events. Neural routing distributed to all nodes.
             </p>
 
@@ -34,6 +34,8 @@ const TrafficAssistant = () => {
 };
 
 export default TrafficAssistant;
+
+
 
 
 

@@ -49,13 +49,13 @@ const ImpactDrivers = ({ city = "Delhi", congestion = 50 }) => {
               </div>
               <div className="space-y-1.5">
                 <p className="text-xs font-black text-on-surface uppercase tracking-tight leading-none">{driver.title}</p>
-                <p className="text-[9px] text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-40">{driver.sub}</p>
+                <p className="text-[9px] text-on-surface font-black uppercase tracking-[0.2em] opacity-40">{driver.sub}</p>
               </div>
             </div>
             <div className="text-right flex flex-col items-end">
               <span className={`${driver.color} text-sm font-black tracking-widest block leading-none mb-1.5`}>{driver.val}</span>
               <div className="bg-on-surface/5 px-2 py-0.5 rounded-full border border-on-surface/5">
-                <p className="text-[7px] text-on-surface-variant font-black uppercase tracking-tighter opacity-60">Neural Impact</p>
+                <p className="text-[7px] text-on-surface font-black uppercase tracking-tighter opacity-60">Neural Impact</p>
               </div>
             </div>
           </li>
@@ -66,6 +66,8 @@ const ImpactDrivers = ({ city = "Delhi", congestion = 50 }) => {
 };
 
 export default ImpactDrivers;
+
+
 
 
 

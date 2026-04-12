@@ -101,7 +101,7 @@ const PollutionInsights = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-tertiary to-sky-400">Insights Panel</span>
           </h2>
           
-          <p className="text-on-surface-variant leading-relaxed font-bold text-sm opacity-70 max-w-2xl">
+          <p className="text-on-surface leading-relaxed font-bold text-sm opacity-70 max-w-2xl">
             Real-time environmental correlation analysis for the {filters.city} sector. Monitoring particulate concentration 
             and carbon peaks relative to multi-modal transit throughput.
           </p>
@@ -117,7 +117,7 @@ const PollutionInsights = () => {
                 className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 ${
                   filters.city === city 
                     ? 'bg-tertiary text-on-tertiary shadow-lg shadow-tertiary/20' 
-                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+                    : 'text-on-surface hover:text-on-surface hover:bg-surface-container-high'
                 }`}
               >
                 {city}
@@ -134,7 +134,7 @@ const PollutionInsights = () => {
                   className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all duration-300 ${
                     filters.range === r.id 
                       ? 'bg-tertiary-container text-on-tertiary-container shadow-lg shadow-black/20' 
-                      : 'text-on-surface-variant hover:text-on-surface'
+                      : 'text-on-surface hover:text-on-surface'
                   }`}
                 >
                   {r.label}
@@ -173,7 +173,7 @@ const PollutionInsights = () => {
         </motion.div>
       </AnimatePresence>
 
-      <footer className="mt-24 pt-10 border-t border-on-surface/5 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.3em] opacity-40">
+      <footer className="mt-24 pt-10 border-t border-on-surface/5 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-on-surface uppercase tracking-[0.3em] opacity-40">
         <div>© 2026 Nexus Environmental Protocol • V7.2.0-Alpha</div>
         <div className="flex items-center gap-10">
           <a className="hover:text-tertiary transition-colors cursor-pointer" href="#compliance">Regulatory Compliance</a>
@@ -186,6 +186,8 @@ const PollutionInsights = () => {
 };
 
 export default PollutionInsights;
+
+
 
 
 

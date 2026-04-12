@@ -19,7 +19,7 @@ const CategoryGrid = () => {
             href="#"
           >
             <div className="absolute -top-6 -right-6 w-12 h-12 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-all"></div>
-            <span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-all text-3xl leading-none">
+            <span className="material-symbols-outlined text-on-surface group-hover:text-primary transition-all text-3xl leading-none">
               {cat.icon}
             </span>
             <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">{cat.label}</span>
@@ -31,6 +31,8 @@ const CategoryGrid = () => {
 };
 
 export default CategoryGrid;
+
+
 
 
 

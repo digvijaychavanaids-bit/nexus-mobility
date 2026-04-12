@@ -62,7 +62,7 @@ const SmartSignals = () => {
         </motion.div>
       </AnimatePresence>
 
-      <footer className="pt-16 border-t border-on-surface/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] font-black text-on-surface-variant uppercase tracking-[0.4em] opacity-20">
+      <footer className="pt-16 border-t border-on-surface/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] font-black text-on-surface uppercase tracking-[0.4em] opacity-20">
         <div className="flex items-center gap-4">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           Signal Protocol v5.1.0-Neural • Autonomous Grid Sync
@@ -78,6 +78,8 @@ const SmartSignals = () => {
 };
 
 export default SmartSignals;
+
+
 
 
 

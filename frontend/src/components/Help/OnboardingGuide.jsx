@@ -11,18 +11,18 @@ const OnboardingGuide = () => {
       
       <div className="space-y-2 relative z-10">
         <h4 className="text-xl font-black font-headline text-on-surface uppercase tracking-tighter antialiased">System Onboarding</h4>
-        <p className="text-[10px] text-on-surface-variant uppercase font-black tracking-widest opacity-60">Master precision in under 15 minutes.</p>
+        <p className="text-[10px] text-on-surface uppercase font-black tracking-widest opacity-60">Master precision in under 15 minutes.</p>
       </div>
 
       <div className="space-y-8 relative z-10">
         {steps.map((step, i) => (
           <div key={i} className="flex gap-6 group/step cursor-pointer active:scale-95 transition-all">
-            <div className="flex-none w-10 h-10 rounded-full border border-on-surface/5 bg-on-surface/5 flex items-center justify-center text-xs font-black text-on-surface-variant group-hover/step:border-primary group-hover/step:text-primary group-hover/step:bg-primary/10 transition-all font-body">
+            <div className="flex-none w-10 h-10 rounded-full border border-on-surface/5 bg-on-surface/5 flex items-center justify-center text-xs font-black text-on-surface group-hover/step:border-primary group-hover/step:text-primary group-hover/step:bg-primary/10 transition-all font-body">
               {step.num}
             </div>
             <div className="space-y-1">
               <p className="text-sm font-black text-on-surface uppercase tracking-tight group-hover/step:text-primary transition-colors">{step.title}</p>
-              <p className="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest leading-relaxed opacity-60">{step.desc}</p>
+              <p className="text-[10px] text-on-surface uppercase font-bold tracking-widest leading-relaxed opacity-60">{step.desc}</p>
             </div>
           </div>
         ))}
@@ -37,6 +37,8 @@ const OnboardingGuide = () => {
 };
 
 export default OnboardingGuide;
+
+
 
 
 

@@ -12,7 +12,7 @@ const Contact = () => {
     >
       <header className="mb-12">
         <h2 className="text-4xl font-extrabold font-headline tracking-tighter text-on-surface mb-2 uppercase antialiased">Technical Support</h2>
-        <p className="text-on-surface-variant max-w-2xl text-lg font-medium opacity-80">
+        <p className="text-on-surface max-w-2xl text-lg font-medium opacity-80">
           Our engineering team is standing by to resolve system anomalies, API disruptions, or data synchronization issues across the Nexus Mobility network.
         </p>
       </header>
@@ -33,7 +33,7 @@ const Contact = () => {
                 <span className="material-symbols-outlined text-4xl">send_and_archive</span>
               </div>
               <h3 className="text-2xl font-black font-headline text-on-surface uppercase tracking-tighter antialiased">Request Dispatched</h3>
-              <p className="text-[10px] text-on-surface-variant uppercase font-black tracking-widest opacity-60 max-w-sm mx-auto leading-relaxed">
+              <p className="text-[10px] text-on-surface uppercase font-black tracking-widest opacity-60 max-w-sm mx-auto leading-relaxed">
                 Uplink established. Your technical query has been routed to the Tier-3 engineering queue.
               </p>
               <button 
@@ -115,7 +115,7 @@ const Contact = () => {
               <div>
                 <h4 className="text-on-surface font-black text-xs uppercase tracking-[0.2em] mb-2 opacity-60">Average Response Time</h4>
                 <p className="text-4xl font-headline font-black text-tertiary tracking-tighter">14 Minutes</p>
-                <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest mt-3 leading-relaxed">
+                <p className="text-on-surface text-[10px] font-bold uppercase tracking-widest mt-3 leading-relaxed">
                   Active engineers are currently monitoring the dispatch queue.
                 </p>
               </div>
@@ -124,14 +124,14 @@ const Contact = () => {
 
           {/* Direct Contact Channels */}
           <div className="bg-surface-container-low p-8 rounded-xl space-y-8 border border-on-surface/5 shadow-2xl">
-            <h4 className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.3em] opacity-40">Global Support Nodes</h4>
+            <h4 className="text-[10px] font-black text-on-surface uppercase tracking-[0.3em] opacity-40">Global Support Nodes</h4>
             <div className="space-y-6">
               <div className="flex items-center gap-5 group cursor-pointer">
                 <div className="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center border border-on-surface/5 group-hover:bg-primary/20 group-hover:border-primary/20 transition-all group-hover:scale-110">
                   <span className="material-symbols-outlined text-primary text-xl">mail</span>
                 </div>
                 <div>
-                  <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Emergency Uplink</p>
+                  <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Emergency Uplink</p>
                   <p className="text-sm font-black text-on-surface tracking-tight uppercase">pkgraphics99@gmail.com</p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ const Contact = () => {
                   <span className="material-symbols-outlined text-primary text-xl">forum</span>
                 </div>
                 <div>
-                  <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Internal Dev Relay</p>
+                  <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Internal Dev Relay</p>
                   <p className="text-sm font-black text-on-surface tracking-tight uppercase">Slack: #nexus-support-hq</p>
                 </div>
               </div>
@@ -171,7 +171,7 @@ const Contact = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
             <div className="absolute bottom-6 left-6">
               <p className="text-on-surface font-black text-xs uppercase tracking-tight">Main Engineering Hub</p>
-              <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest opacity-60">Mission District, San Francisco</p>
+              <p className="text-on-surface text-[10px] font-bold uppercase tracking-widest opacity-60">Mission District, San Francisco</p>
             </div>
           </div>
         </div>
@@ -179,7 +179,7 @@ const Contact = () => {
 
       {/* Role Specific Badge */}
       <div className="mt-16 flex justify-center">
-        <span className="bg-surface-container-highest/20 px-6 py-2 rounded-full border border-on-surface/5 text-[10px] text-on-surface-variant uppercase tracking-[0.3em] font-black opacity-60">
+        <span className="bg-surface-container-highest/20 px-6 py-2 rounded-full border border-on-surface/5 text-[10px] text-on-surface uppercase tracking-[0.3em] font-black opacity-60">
           Internal Support Terminal • V 4.2.1-Beta
         </span>
       </div>
@@ -188,6 +188,8 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
 
 
 

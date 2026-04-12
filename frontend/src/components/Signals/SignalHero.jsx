@@ -33,7 +33,7 @@ const SignalHero = ({ city, onCityChange }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-on-surface-variant leading-relaxed font-medium text-base lg:text-lg opacity-60 max-w-2xl"
+          className="text-on-surface leading-relaxed font-medium text-base lg:text-lg opacity-60 max-w-2xl"
         >
           The Nexus Optimization Engine synchronizes city-wide intersection flow using real-time neural telemetry. 
           Analyzing {city}'s municipal grid for autonomous phase adjustments and throughput maximization.
@@ -54,7 +54,7 @@ const SignalHero = ({ city, onCityChange }) => {
               className={`px-6 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-500 relative group ${
                 city === c 
                   ? 'text-on-surface' 
-                  : 'text-on-surface-variant hover:text-on-surface'
+                  : 'text-on-surface hover:text-on-surface'
               }`}
             >
               {city === c && (
@@ -79,6 +79,8 @@ const SignalHero = ({ city, onCityChange }) => {
 };
 
 export default SignalHero;
+
+
 
 
 

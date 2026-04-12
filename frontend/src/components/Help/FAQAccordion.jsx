@@ -18,13 +18,13 @@ const FAQItem = ({ question, answer, icon, color }) => {
             {question}
           </span>
         </div>
-        <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`material-symbols-outlined text-on-surface transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           expand_more
         </span>
       </button>
       
       {isOpen && (
-        <div className="px-6 pb-6 text-xs text-on-surface-variant font-medium leading-relaxed max-w-2xl animate-fade-in opacity-80 uppercase tracking-widest">
+        <div className="px-6 pb-6 text-xs text-on-surface font-medium leading-relaxed max-w-2xl animate-fade-in opacity-80 uppercase tracking-widest">
           {answer}
         </div>
       )}
@@ -65,7 +65,7 @@ const FAQAccordion = () => {
       <div className="flex items-end justify-between mb-8 px-2">
         <div className="space-y-1">
           <h3 className="text-2xl font-black font-headline tracking-tighter text-on-surface uppercase antialiased">Frequently Asked Questions</h3>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Quick operational intelligence.</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Quick operational intelligence.</p>
         </div>
         <span className="text-[10px] font-black text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20 shadow-sm uppercase tracking-widest">24 New Updates</span>
       </div>
@@ -80,6 +80,8 @@ const FAQAccordion = () => {
 };
 
 export default FAQAccordion;
+
+
 
 
 

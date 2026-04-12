@@ -24,13 +24,13 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
     <section className="lg:col-span-4 bg-white/[0.03] backdrop-blur-xl rounded-[2.5rem] p-8 space-y-10 font-body border border-on-surface/5 shadow-2xl">
       <div className="space-y-2">
         <h3 className="text-2xl font-black text-on-surface uppercase tracking-tight">Scenario Configuration</h3>
-        <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Neural Simulation Parameters</p>
+        <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] opacity-60">Neural Simulation Parameters</p>
       </div>
 
       <form className="space-y-8" onSubmit={handleSubmit}>
         {/* City Selector */}
         <div className="space-y-4">
-          <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Target Metropolitan Sector</label>
+          <label className="text-[10px] font-black text-on-surface uppercase tracking-widest">Target Metropolitan Sector</label>
           <div className="grid grid-cols-2 gap-2">
             {cities.map((c) => (
               <button
@@ -40,7 +40,7 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
                 className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                   city === c 
                     ? 'bg-primary text-on-surface border-primary shadow-lg shadow-primary/20 scale-[1.02]' 
-                    : 'bg-on-surface/5 text-on-surface-variant border-on-surface/5 hover:bg-on-surface/10'
+                    : 'bg-on-surface/5 text-on-surface border-on-surface/5 hover:bg-on-surface/10'
                 }`}
               >
                 {c}
@@ -51,7 +51,7 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
 
         {/* Input: Time */}
         <div className="space-y-4">
-          <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Projection Timestamp</label>
+          <label className="text-[10px] font-black text-on-surface uppercase tracking-widest">Projection Timestamp</label>
           <div className="relative group">
             <input 
               className="w-full bg-on-surface/5 text-on-surface border border-on-surface/5 rounded-2xl py-4 px-5 focus:bg-on-surface/10 focus:border-primary/50 text-sm font-black tracking-widest transition-all outline-none" 
@@ -59,14 +59,14 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
               value={hour}
               onChange={(e) => setHour(e.target.value)}
             />
-            <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none group-focus-within:text-primary transition-colors">schedule</span>
+            <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-on-surface pointer-events-none group-focus-within:text-primary transition-colors">schedule</span>
           </div>
         </div>
 
         {/* Input: AQI */}
         <div className="space-y-6">
           <div className="flex justify-between items-end">
-            <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Atmospheric Toxicity (AQI)</label>
+            <label className="text-[10px] font-black text-on-surface uppercase tracking-widest">Atmospheric Toxicity (AQI)</label>
             <span className="text-tertiary font-black text-xs uppercase tracking-widest">{aqi} PM2.5</span>
           </div>
           <input 
@@ -83,7 +83,7 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
         <div className="flex items-center justify-between p-5 bg-on-surface/5 rounded-2xl border border-on-surface/5 shadow-inner">
           <div className="space-y-1">
             <p className="text-[10px] font-black uppercase tracking-widest text-on-surface">Precipitation Factor</p>
-            <p className="text-[10px] text-on-surface-variant font-black uppercase opacity-40">Rainy conditions</p>
+            <p className="text-[10px] text-on-surface font-black uppercase opacity-40">Rainy conditions</p>
           </div>
           <button 
             type="button"
@@ -108,6 +108,8 @@ const ScenarioParameters = ({ onPredict, isLoading }) => {
 };
 
 export default ScenarioParameters;
+
+
 
 
 

@@ -15,7 +15,7 @@ const PersonnelRow = ({ id, name, email, role, status, lastLogin, initial, color
           <span className="text-sm font-black text-on-surface uppercase tracking-tight">{name}</span>
         </div>
       </td>
-      <td className="px-6 py-4 text-xs text-on-surface-variant font-bold lowercase tracking-tight min-w-[200px]">{email}</td>
+      <td className="px-6 py-4 text-xs text-on-surface font-bold lowercase tracking-tight min-w-[200px]">{email}</td>
       <td className="px-6 py-4">
         <select 
           value={role}
@@ -30,15 +30,15 @@ const PersonnelRow = ({ id, name, email, role, status, lastLogin, initial, color
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
           <div className={`w-1.5 h-1.5 rounded-full ${status === 'Active' ? 'bg-tertiary animate-pulse shadow-[0_0_8px_rgba(112,216,200,0.5)]' : 'bg-slate-600'}`}></div>
-          <span className={`text-[10px] font-black uppercase tracking-widest ${status === 'Active' ? 'text-tertiary' : 'text-on-surface-variant'}`}>{status}</span>
+          <span className={`text-[10px] font-black uppercase tracking-widest ${status === 'Active' ? 'text-tertiary' : 'text-on-surface'}`}>{status}</span>
         </div>
       </td>
-      <td className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">{lastLogin}</td>
+      <td className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">{lastLogin}</td>
       <td className="px-6 py-4 text-right">
         <div className="relative inline-block text-left">
           <button 
             onClick={() => setShowMenu(!showMenu)}
-            className="opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant hover:text-on-surface"
+            className="opacity-0 group-hover:opacity-100 transition-opacity text-on-surface hover:text-on-surface"
           >
             <span className="material-symbols-outlined text-lg leading-none">more_vert</span>
           </button>
@@ -117,7 +117,7 @@ const AddUserModal = ({ onClose, onSuccess }) => {
           {error && <p className="text-[10px] font-black text-error uppercase tracking-widest">{error}</p>}
 
           <div className="flex gap-3 pt-4">
-            <button type="button" onClick={onClose} className="flex-1 py-3 text-[10px] font-black uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">Abort</button>
+            <button type="button" onClick={onClose} className="flex-1 py-3 text-[10px] font-black uppercase tracking-widest text-on-surface hover:text-on-surface transition-colors">Abort</button>
             <button type="submit" disabled={loading} className="flex-1 py-3 bg-primary text-on-surface rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 disabled:opacity-50">
               {loading ? 'Propagating...' : 'Confirm Node'}
             </button>
@@ -193,7 +193,7 @@ const PersonnelManagement = () => {
       <div className="flex justify-between items-end mb-8 relative z-10 font-body">
         <div>
           <h3 className="text-xl font-black font-headline text-on-surface mb-1 uppercase tracking-tighter">Personnel Management</h3>
-          <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">Manage active operators and system delegates</p>
+          <p className="text-on-surface text-[10px] font-bold uppercase tracking-widest">Manage active operators and system delegates</p>
         </div>
         <div className="flex gap-3 shrink-0">
           <button 
@@ -223,11 +223,11 @@ const PersonnelManagement = () => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-surface-container-high/30">
-              <th className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Name</th>
-              <th className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Email</th>
-              <th className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Role</th>
-              <th className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Status</th>
-              <th className="px-6 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Last Login</th>
+              <th className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Name</th>
+              <th className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Email</th>
+              <th className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Role</th>
+              <th className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Status</th>
+              <th className="px-6 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Last Login</th>
               <th className="px-6 py-4"></th>
             </tr>
           </thead>
@@ -243,7 +243,7 @@ const PersonnelManagement = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-6 py-12 text-center text-on-surface-variant uppercase text-[10px] font-black tracking-widest">
+                <td colSpan={6} className="px-6 py-12 text-center text-on-surface uppercase text-[10px] font-black tracking-widest">
                   No active personnel nodes identified
                 </td>
               </tr>
@@ -260,6 +260,8 @@ const PersonnelManagement = () => {
 };
 
 export default PersonnelManagement;
+
+
 
 
 

@@ -39,7 +39,7 @@ const CoreTechnologies = () => {
     <section className="space-y-10 mb-20 font-body">
       <div className="flex flex-col gap-3">
         <h3 className="text-3xl font-black font-headline tracking-tighter text-on-surface uppercase antialiased">Core Technologies</h3>
-        <p className="text-on-surface-variant text-sm font-medium opacity-70">The hardware and logic driving our precision analytics suite.</p>
+        <p className="text-on-surface text-sm font-medium opacity-70">The hardware and logic driving our precision analytics suite.</p>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -52,11 +52,11 @@ const CoreTechnologies = () => {
               <div className="p-3 bg-primary/10 rounded-xl text-primary border border-primary/20 transition-transform group-hover:scale-110">
                 <span className="material-symbols-outlined text-3xl leading-none" style={{ fontVariationSettings: "'FILL' 1" }}>{tech.icon}</span>
               </div>
-              <span className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest opacity-50">{tech.category}</span>
+              <span className="text-[9px] font-black text-on-surface uppercase tracking-widest opacity-50">{tech.category}</span>
             </div>
             
             <h4 className="text-2xl font-black text-on-surface font-headline tracking-tighter mb-4 antialiased relative z-20">{tech.title}</h4>
-            <p className="text-sm text-on-surface-variant leading-relaxed font-medium opacity-90 relative z-20">{tech.desc}</p>
+            <p className="text-sm text-on-surface leading-relaxed font-medium opacity-90 relative z-20">{tech.desc}</p>
             
             {tech.title === 'Cloud-Edge Hybrid' && (
               <img 
@@ -73,6 +73,8 @@ const CoreTechnologies = () => {
 };
 
 export default CoreTechnologies;
+
+
 
 
 

@@ -5,7 +5,7 @@ const PredictionResultCard = ({ result }) => {
   const strokeDasharray = `${percentage}, 100`;
 
   return (
-    <div className="bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-slate-800/50 font-body transition-all hover:shadow-primary-container/[0.05]">
+    <div className="bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-on-surface/10/50 font-body transition-all hover:shadow-primary-container/[0.05]">
       <div className="p-8 flex flex-col md:flex-row gap-10 items-center">
         {/* Visual Gauge */}
         <div className="relative w-48 h-48 shrink-0">
@@ -37,7 +37,7 @@ const PredictionResultCard = ({ result }) => {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-4xl font-headline font-black text-on-surface tracking-tighter">{percentage}%</span>
-            <span className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest leading-none">Congestion</span>
+            <span className="text-[10px] text-on-surface font-black uppercase tracking-widest leading-none">Congestion</span>
           </div>
         </div>
 
@@ -47,20 +47,20 @@ const PredictionResultCard = ({ result }) => {
             <h4 className="text-xl font-black text-on-surface mb-2 leading-none tracking-tight uppercase">
               {percentage > 60 ? 'High Congestion Warning' : 'Optimal Path Clearance'}
             </h4>
-            <p className="text-on-surface-variant font-black text-[9px] uppercase tracking-[0.2em] opacity-40 leading-relaxed">
+            <p className="text-on-surface font-black text-[9px] uppercase tracking-[0.2em] opacity-40 leading-relaxed">
               Simulation indicates a {percentage > 60 ? 'high' : 'low'} probability of bottlenecking at major arterial nodes. Expected transit delay: +14.5 minutes.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6 w-full max-w-md">
             <div className="bg-on-surface/5 backdrop-blur-xl p-5 rounded-2xl border border-on-surface/10 shadow-xl flex flex-col items-center text-center">
-              <span className="block text-[9px] text-on-surface-variant font-black uppercase mb-3 tracking-[0.2em] opacity-50">Weather Impact</span>
+              <span className="block text-[9px] text-on-surface font-black uppercase mb-3 tracking-[0.2em] opacity-50">Weather Impact</span>
               <div className="text-on-surface text-xs font-black uppercase tracking-widest flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-lg leading-none">rainy</span>
                 Moderate Rain
               </div>
             </div>
             <div className="bg-on-surface/5 backdrop-blur-xl p-5 rounded-2xl border border-on-surface/10 shadow-xl flex flex-col items-center text-center">
-              <span className="block text-[9px] text-on-surface-variant font-black uppercase mb-3 tracking-[0.2em] opacity-50">Public Transit</span>
+              <span className="block text-[9px] text-on-surface font-black uppercase mb-3 tracking-[0.2em] opacity-50">Public Transit</span>
               <div className="text-on-surface text-xs font-black uppercase tracking-widest flex items-center gap-3">
                 <span className="material-symbols-outlined text-tertiary text-lg leading-none">subway</span>
                 Full Op Capacity
@@ -73,7 +73,7 @@ const PredictionResultCard = ({ result }) => {
       {/* Flow Scale Component */}
       <div className="px-8 pb-8">
         <div className="space-y-3">
-          <div className="flex justify-between items-center text-[10px] font-black uppercase text-on-surface-variant tracking-widest">
+          <div className="flex justify-between items-center text-[10px] font-black uppercase text-on-surface tracking-widest">
             <span>Relative Density Flow</span>
             <span>Predicted Surge: 17:45</span>
           </div>
@@ -89,6 +89,8 @@ const PredictionResultCard = ({ result }) => {
 };
 
 export default PredictionResultCard;
+
+
 
 
 

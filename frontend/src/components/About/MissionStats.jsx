@@ -11,14 +11,14 @@ const MissionStats = () => {
                <span className="material-symbols-outlined text-primary text-4xl">reduce_capacity</span>
             </div>
             <h4 className="text-xl font-black text-on-surface tracking-tight uppercase">Congestion Neutrality</h4>
-            <p className="text-sm text-on-surface-variant leading-relaxed opacity-90 font-medium">Reducing idle time by 40% through real-time AI-driven signal synchronization and lane management.</p>
+            <p className="text-sm text-on-surface leading-relaxed opacity-90 font-medium">Reducing idle time by 40% through real-time AI-driven signal synchronization and lane management.</p>
           </div>
           <div className="space-y-4">
             <div className="w-16 h-16 rounded-xl bg-tertiary/10 flex items-center justify-center border border-tertiary/20 shadow-inner">
                <span className="material-symbols-outlined text-tertiary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>nature_people</span>
             </div>
             <h4 className="text-xl font-black text-on-surface tracking-tight uppercase">Carbon-Zero Flow</h4>
-            <p className="text-sm text-on-surface-variant leading-relaxed opacity-90 font-medium">Directing mobility patterns to minimize emissions hotspots in high-density residential areas.</p>
+            <p className="text-sm text-on-surface leading-relaxed opacity-90 font-medium">Directing mobility patterns to minimize emissions hotspots in high-density residential areas.</p>
           </div>
         </div>
       </div>
@@ -38,6 +38,8 @@ const MissionStats = () => {
 };
 
 export default MissionStats;
+
+
 
 
 

@@ -26,7 +26,7 @@ const HotspotPanel = ({ city = 'Delhi' }) => {
           <div className="flex items-center justify-between">
             <div>
               <h4 className="text-xl font-black text-on-surface uppercase tracking-tighter">Particulate Grid</h4>
-              <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Live sensor network: {city}</p>
+              <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Live sensor network: {city}</p>
             </div>
             <div className="bg-tertiary/20 p-3 rounded-2xl backdrop-blur-md border border-tertiary/30 shadow-xl">
               <span className="material-symbols-outlined text-tertiary">satellite_alt</span>
@@ -43,7 +43,7 @@ const HotspotPanel = ({ city = 'Delhi' }) => {
       >
         <div className="mb-8">
           <h3 className="text-lg font-black text-on-surface uppercase tracking-tight">Critical Hubs</h3>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60 mt-1">Metropolitan Particulate Peaks</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60 mt-1">Metropolitan Particulate Peaks</p>
         </div>
 
         <div className="space-y-4">
@@ -65,14 +65,14 @@ const HotspotPanel = ({ city = 'Delhi' }) => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-black text-on-surface uppercase tracking-tight truncate">{sensor.name}</p>
-                  <p className="text-[9px] text-on-surface-variant font-black uppercase tracking-widest truncate mt-0.5">{sensor.traffic}</p>
+                  <p className="text-[9px] text-on-surface font-black uppercase tracking-widest truncate mt-0.5">{sensor.traffic}</p>
                 </div>
               </div>
               <div className="text-right pl-4 shrink-0 border-l border-on-surface/5 ml-2">
                 <p className={`text-xl font-black leading-tight tabular-nums ${sensor.color === 'error' ? 'text-error' : 'text-tertiary'}`}>
                   {sensor.aqi}
                 </p>
-                <p className="text-[8px] text-on-surface-variant font-black uppercase tracking-widest opacity-40">{sensor.impact}</p>
+                <p className="text-[8px] text-on-surface font-black uppercase tracking-widest opacity-40">{sensor.impact}</p>
               </div>
             </motion.div>
           ))}
@@ -87,6 +87,8 @@ const HotspotPanel = ({ city = 'Delhi' }) => {
 };
 
 export default HotspotPanel;
+
+
 
 
 

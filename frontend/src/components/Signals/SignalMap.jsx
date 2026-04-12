@@ -117,7 +117,7 @@ const SignalMap = ({ city, signals, loading }) => {
              </div>
              <motion.span 
                animate={{ rotate: expandedMetrics ? 180 : 0 }}
-               className="material-symbols-outlined text-on-surface-variant text-base opacity-40"
+               className="material-symbols-outlined text-on-surface text-base opacity-40"
              >
                expand_more
              </motion.span>
@@ -168,7 +168,7 @@ const SignalMap = ({ city, signals, loading }) => {
             className="px-6 py-4 cursor-pointer flex items-center gap-5"
           >
             <div className="flex flex-col gap-1 font-mono">
-              <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] opacity-30">Mesh Node Registry</span>
+              <span className="text-[10px] font-bold text-on-surface uppercase tracking-[0.2em] opacity-30">Mesh Node Registry</span>
               <AnimatePresence mode="wait">
                 {expandedMesh ? (
                   <motion.span 
@@ -206,6 +206,8 @@ const SignalMap = ({ city, signals, loading }) => {
 };
 
 export default SignalMap;
+
+
 
 
 

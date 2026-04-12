@@ -1,7 +1,7 @@
 const SettingsFooter = ({ onSave, onCancel }) => {
   return (
     <div className="pt-10 border-t border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-8 font-body">
-      <div className="flex flex-col sm:flex-row items-center gap-6 text-[10px] text-on-surface-variant uppercase font-black tracking-widest opacity-60">
+      <div className="flex flex-col sm:flex-row items-center gap-6 text-[10px] text-on-surface uppercase font-black tracking-widest opacity-60">
         <span className="flex items-center gap-2">
           <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>history</span> 
           Last change: 42 days ago
@@ -32,6 +32,8 @@ const SettingsFooter = ({ onSave, onCancel }) => {
 };
 
 export default SettingsFooter;
+
+
 
 
 

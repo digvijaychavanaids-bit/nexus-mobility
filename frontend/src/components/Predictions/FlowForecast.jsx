@@ -26,13 +26,13 @@ const FlowForecast = ({ city = 'Delhi', aqi = 50 }) => {
   if (loading) {
     return (
       <div className="bg-surface-container-low rounded-xl p-6 h-64 flex items-center justify-center animate-pulse">
-        <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Calculating Future Flow...</span>
+        <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">Calculating Future Flow...</span>
       </div>
     );
   }
 
   return (
-    <div className="bg-surface-container-low rounded-xl p-6 space-y-4 border border-slate-800/50 shadow-lg font-body">
+    <div className="bg-surface-container-low rounded-xl p-6 space-y-4 border border-on-surface/10/50 shadow-lg font-body">
       <div className="flex justify-between items-start">
         <h5 className="text-sm font-headline font-black text-on-surface uppercase tracking-widest leading-none">Flow Forecast</h5>
         <span className="bg-primary/20 text-primary text-[10px] font-black px-2 py-0.5 rounded uppercase ring-1 ring-primary/10 tracking-widest leading-none">6H Prediction</span>
@@ -66,7 +66,7 @@ const FlowForecast = ({ city = 'Delhi', aqi = 50 }) => {
         </ResponsiveContainer>
       </div>
 
-      <p className="text-[9px] text-on-surface-variant font-bold uppercase tracking-widest leading-relaxed">
+      <p className="text-[9px] text-on-surface font-bold uppercase tracking-widest leading-relaxed">
         Anticipated metropolitan density shift based on atmospheric and historical neural weights.
       </p>
     </div>
@@ -74,6 +74,8 @@ const FlowForecast = ({ city = 'Delhi', aqi = 50 }) => {
 };
 
 export default FlowForecast;
+
+
 
 
 

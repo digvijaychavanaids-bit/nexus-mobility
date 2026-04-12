@@ -6,7 +6,7 @@ const AdminHero = () => {
         System Governance
       </div>
       <h2 className="text-3xl font-extrabold font-headline tracking-tighter text-on-surface antialiased uppercase">Administrative Interface</h2>
-      <p className="text-on-surface-variant text-sm max-w-2xl font-medium leading-relaxed">
+      <p className="text-on-surface text-sm max-w-2xl font-medium leading-relaxed">
         Manage global access levels, verify telemetry data integrity, and monitor infrastructure health from the central node.
       </p>
     </div>
@@ -14,6 +14,8 @@ const AdminHero = () => {
 };
 
 export default AdminHero;
+
+
 
 
 

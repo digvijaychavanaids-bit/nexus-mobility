@@ -13,13 +13,13 @@ const About = () => {
         <div className="flex items-center gap-8">
           <h1 className="text-xl font-black tracking-tighter text-sky-400 antialiased">Nexus Mobility</h1>
           <nav className="hidden lg:flex items-center gap-8">
-            <a className="text-on-surface-variant font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#">Infrastructure</a>
-            <a className="text-on-surface-variant font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#">Case Studies</a>
+            <a className="text-on-surface font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#">Infrastructure</a>
+            <a className="text-on-surface font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#">Case Studies</a>
             <a className="text-sky-400 font-black text-[10px] uppercase tracking-widest border-b-2 border-sky-400 pb-1" href="#">About Mission</a>
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          <button className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
             <span className="material-symbols-outlined text-sm">notifications</span>
           </button>
           <div className="h-8 w-8 rounded-full overflow-hidden border border-sky-400/30 shadow-lg">
@@ -50,6 +50,8 @@ const About = () => {
 };
 
 export default About;
+
+
 
 
 

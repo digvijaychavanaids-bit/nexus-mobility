@@ -31,13 +31,13 @@ const IntelligencePanel = ({ stats, city }) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="p-4 bg-on-surface/5 rounded-2xl border border-on-surface/5 space-y-1.5">
-          <p className="text-[9px] font-black text-on-surface-variant uppercase">Congestion Index</p>
+          <p className="text-[9px] font-black text-on-surface uppercase">Congestion Index</p>
           <p className={`text-xl font-black ${(stats?.avg_traffic_index || 0) > 50 ? 'text-error' : 'text-primary'}`}>
             {stats?.avg_traffic_index || '—'}
           </p>
         </div>
         <div className="p-4 bg-on-surface/5 rounded-2xl border border-on-surface/5 space-y-1.5">
-          <p className="text-[9px] font-black text-on-surface-variant uppercase">Atmospheric AQI</p>
+          <p className="text-[9px] font-black text-on-surface uppercase">Atmospheric AQI</p>
           <p className={`text-xl font-black ${(stats?.avg_aqi || 0) > 100 ? 'text-error' : 'text-tertiary'}`}>
             {stats?.avg_aqi || '—'}
           </p>
@@ -58,6 +58,8 @@ const IntelligencePanel = ({ stats, city }) => {
 };
 
 export default IntelligencePanel;
+
+
 
 
 

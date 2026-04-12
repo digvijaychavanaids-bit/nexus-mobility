@@ -47,17 +47,17 @@ const GoldenWindow = ({ city }) => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
-                <p className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest">Optimal Transit</p>
+                <p className="text-[9px] font-black text-on-surface uppercase tracking-widest">Optimal Transit</p>
                 <p className="text-2xl font-black text-on-surface">{goldenHour.hour}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest">Saturation</p>
+                <p className="text-[9px] font-black text-on-surface uppercase tracking-widest">Saturation</p>
                 <p className="text-2xl font-black text-tertiary">{Math.round(goldenHour.load)}%</p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="flex justify-between text-[8px] font-black text-on-surface-variant uppercase tracking-widest">
+              <div className="flex justify-between text-[8px] font-black text-on-surface uppercase tracking-widest">
                 <span>Load Profile</span>
                 <span>24H Cycle</span>
               </div>
@@ -87,6 +87,8 @@ const GoldenWindow = ({ city }) => {
 };
 
 export default GoldenWindow;
+
+
 
 
 

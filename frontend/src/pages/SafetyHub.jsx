@@ -71,7 +71,7 @@ const SafetyHub = () => {
              <span className="material-symbols-outlined text-primary text-3xl">verified_user</span>
              Citizen Safety Hub
           </h1>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] mt-2 opacity-80 italic italic">Verified Environmental & Health Advisories</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] mt-2 opacity-80 italic italic">Verified Environmental & Health Advisories</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -87,7 +87,7 @@ const SafetyHub = () => {
               <option className="bg-surface-container">Chennai</option>
               <option className="bg-surface-container">Hyderabad</option>
             </select>
-            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none group-hover:text-primary transition-colors text-sm">
+            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface pointer-events-none group-hover:text-primary transition-colors text-sm">
               expand_more
             </span>
           </div>
@@ -103,7 +103,7 @@ const SafetyHub = () => {
             <GlassCard className={`p-10 ${advisory?.bg} ${advisory?.border} border relative overflow-hidden group transition-colors duration-700`}>
                 <div className="flex flex-col md:flex-row items-center gap-10">
                    <div className="w-40 h-40 rounded-full bg-surface-container-lowest flex flex-col items-center justify-center border border-on-surface/5 relative shadow-inner">
-                      <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] leading-none mb-2">AQI Pulse</p>
+                      <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] leading-none mb-2">AQI Pulse</p>
                       <p className={`text-5xl font-black font-headline tracking-tighter ${advisory?.color}`}>{profile?.pm25}</p>
                       <p className="text-[8px] text-on-surface font-bold uppercase mt-2">Verified PM2.5</p>
                    </div>
@@ -111,7 +111,7 @@ const SafetyHub = () => {
                    <div className="flex-1 text-center md:text-left">
                       <div className={`text-[10px] font-black uppercase tracking-[0.3em] ${advisory?.color} mb-3`}>Municipal Advisory • {advisory?.status}</div>
                       <h2 className="text-4xl font-black font-headline text-on-surface uppercase tracking-tighter leading-tight mb-4">Institutional Health Directive</h2>
-                      <p className="text-lg text-on-surface-variant font-medium leading-relaxed max-w-2xl">{advisory?.advice}</p>
+                      <p className="text-lg text-on-surface font-medium leading-relaxed max-w-2xl">{advisory?.advice}</p>
                    </div>
                 </div>
             </GlassCard>
@@ -120,24 +120,24 @@ const SafetyHub = () => {
           {/* Metric Grid */}
           <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
              <div className="p-8 bg-surface-container-low rounded-3xl border border-on-surface/5">
-                <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest leading-none mb-4">Carbon Monoxide</p>
+                <p className="text-[10px] text-on-surface font-black uppercase tracking-widest leading-none mb-4">Carbon Monoxide</p>
                 <div className="flex items-baseline gap-2">
                    <span className="text-3xl font-black font-headline text-on-surface tracking-tighter">{profile?.co}</span>
-                   <span className="text-[8px] font-bold text-on-surface-variant uppercase">ug/m³</span>
+                   <span className="text-[8px] font-bold text-on-surface uppercase">ug/m³</span>
                 </div>
              </div>
              <div className="p-8 bg-surface-container-low rounded-3xl border border-on-surface/5">
-                <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest leading-none mb-4">PM10 Index</p>
+                <p className="text-[10px] text-on-surface font-black uppercase tracking-widest leading-none mb-4">PM10 Index</p>
                 <div className="flex items-baseline gap-2">
                    <span className="text-3xl font-black font-headline text-on-surface tracking-tighter">{profile?.pm10}</span>
-                   <span className="text-[8px] font-bold text-on-surface-variant uppercase">ug/m³</span>
+                   <span className="text-[8px] font-bold text-on-surface uppercase">ug/m³</span>
                 </div>
              </div>
              <div className="p-8 bg-surface-container-low rounded-3xl border border-on-surface/5">
-                <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest leading-none mb-4">Nitrogen Dioxide</p>
+                <p className="text-[10px] text-on-surface font-black uppercase tracking-widest leading-none mb-4">Nitrogen Dioxide</p>
                 <div className="flex items-baseline gap-2">
                    <span className="text-3xl font-black font-headline text-on-surface tracking-tighter">{profile?.no2}</span>
-                   <span className="text-[8px] font-bold text-on-surface-variant uppercase">ug/m³</span>
+                   <span className="text-[8px] font-bold text-on-surface uppercase">ug/m³</span>
                 </div>
              </div>
           </div>
@@ -160,6 +160,8 @@ const SafetyHub = () => {
 };
 
 export default SafetyHub;
+
+
 
 
 

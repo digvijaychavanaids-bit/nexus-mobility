@@ -19,15 +19,15 @@ const Home = () => {
             <h1 className="text-xl md:text-2xl font-black tracking-tighter text-on-surface antialiased">Nexus Mobility</h1>
           </div>
           <nav className="hidden lg:flex items-center gap-6 md:gap-8">
-            <a className="text-on-surface-variant font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#tech">Technology</a>
-            <a className="text-on-surface-variant font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#mission">Mission</a>
-            <Link to="/about" className="text-on-surface-variant font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer">About Mission</Link>
+            <a className="text-on-surface font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#tech">Technology</a>
+            <a className="text-on-surface font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer" href="#mission">Mission</a>
+            <Link to="/about" className="text-on-surface font-black text-[10px] uppercase tracking-widest hover:text-sky-300 transition-all cursor-pointer">About Mission</Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 md:gap-6">
           <Link 
             to="/login" 
-            className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-all px-3 py-2"
+            className="text-[10px] font-black uppercase tracking-widest text-on-surface hover:text-on-surface transition-all px-3 py-2"
           >
             Sign In
           </Link>
@@ -66,6 +66,8 @@ const Home = () => {
 };
 
 export default Home;
+
+
 
 
 

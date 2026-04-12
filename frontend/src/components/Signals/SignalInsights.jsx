@@ -17,12 +17,12 @@ const InsightCard = ({ title, value, sub, icon, color, delay }) => (
     <div className="relative z-10 space-y-6">
       <div className="flex items-center gap-3">
         <span className={`material-symbols-outlined text-lg ${color}`}>{icon}</span>
-        <p className="text-[11px] font-black text-on-surface-variant uppercase tracking-[0.3em] leading-none opacity-50 group-hover:opacity-100 transition-opacity">{title}</p>
+        <p className="text-[11px] font-black text-on-surface uppercase tracking-[0.3em] leading-none opacity-50 group-hover:opacity-100 transition-opacity">{title}</p>
       </div>
       
       <div className="space-y-1.5">
         <h4 className={`text-5xl font-black tracking-tighter ${color} tabular-nums group-hover:scale-105 transition-transform origin-left duration-500`}>{value}</h4>
-        <p className="text-[11px] text-on-surface-variant font-bold uppercase tracking-[0.2em] leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">{sub}</p>
+        <p className="text-[11px] text-on-surface font-bold uppercase tracking-[0.2em] leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">{sub}</p>
       </div>
     </div>
     
@@ -88,6 +88,8 @@ const SignalInsights = ({ city }) => {
 };
 
 export default SignalInsights;
+
+
 
 
 

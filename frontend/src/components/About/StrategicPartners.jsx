@@ -9,7 +9,7 @@ const StrategicPartners = () => {
 
   return (
     <section className="py-20 border-t border-on-surface/5 mb-20 font-body">
-      <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] text-on-surface-variant mb-16 opacity-60">Strategic City Partners</p>
+      <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] text-on-surface mb-16 opacity-60">Strategic City Partners</p>
       
       <div className="flex flex-wrap justify-center items-center gap-16 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
         {partners.map((partner, i) => (
@@ -28,6 +28,8 @@ const StrategicPartners = () => {
 };
 
 export default StrategicPartners;
+
+
 
 
 

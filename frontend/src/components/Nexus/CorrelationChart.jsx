@@ -22,18 +22,18 @@ const CorrelationChart = ({ data: apiData, city = 'Delhi' }) => {
           <h3 className="text-2xl font-black text-on-surface uppercase tracking-tight">
             Traffic vs. Pollution Correlation
           </h3>
-          <p className="text-[10px] text-on-surface-variant mt-2 font-black uppercase tracking-[0.2em] opacity-60">
+          <p className="text-[10px] text-on-surface mt-2 font-black uppercase tracking-[0.2em] opacity-60">
             Cross-referencing vehicle density against nitrogen dioxide peaks in {city}
           </p>
         </div>
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(148,204,255,0.5)]"></span>
-            <span className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest">Density</span>
+            <span className="text-[10px] text-on-surface font-black uppercase tracking-widest">Density</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-tertiary shadow-[0_0_10px_rgba(112,216,200,0.5)]"></span>
-            <span className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest">NO2 PEAK</span>
+            <span className="text-[10px] text-on-surface font-black uppercase tracking-widest">NO2 PEAK</span>
           </div>
         </div>
       </div>
@@ -98,6 +98,8 @@ const CorrelationChart = ({ data: apiData, city = 'Delhi' }) => {
 };
 
 export default CorrelationChart;
+
+
 
 
 

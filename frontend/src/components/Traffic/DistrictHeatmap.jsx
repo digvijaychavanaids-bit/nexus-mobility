@@ -18,7 +18,7 @@ const DistrictHeatmap = ({ data: apiData }) => {
     <div className="col-span-12 lg:col-span-4 bg-white/[0.03] backdrop-blur-md rounded-[2.5rem] p-8 font-body shadow-2xl border border-on-surface/5 hover:bg-white/[0.04] transition-all">
       <div className="mb-10">
         <h3 className="text-xl font-black text-on-surface uppercase tracking-tight mb-2">District Saturation</h3>
-        <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-60">Intensity heatmap per sector 24h average</p>
+        <p className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-60">Intensity heatmap per sector 24h average</p>
       </div>
       
       <div className="grid grid-cols-4 gap-3">
@@ -52,7 +52,7 @@ const DistrictHeatmap = ({ data: apiData }) => {
 
       <div className="mt-10 flex flex-col gap-6">
         <div className="flex justify-between items-center">
-          <span className="text-[10px] text-on-surface-variant font-black uppercase tracking-widest opacity-40">Load Gradient</span>
+          <span className="text-[10px] text-on-surface font-black uppercase tracking-widest opacity-40">Load Gradient</span>
           <span className="text-[9px] font-black text-on-surface uppercase tracking-widest px-2 py-0.5 bg-on-surface/5 rounded-full border border-on-surface/5">0% → 100%</span>
         </div>
         <div className="h-1.5 w-full rounded-full overflow-hidden bg-on-surface/5 relative">
@@ -65,6 +65,8 @@ const DistrictHeatmap = ({ data: apiData }) => {
 };
 
 export default DistrictHeatmap;
+
+
 
 
 

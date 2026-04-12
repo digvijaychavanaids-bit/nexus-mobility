@@ -49,7 +49,7 @@ const VisionaryTeam = () => {
     <section className="space-y-16 pb-32 font-body">
       <div className="text-center space-y-4">
         <h3 className="text-4xl font-headline font-black tracking-tighter text-on-surface uppercase antialiased">The Visionaries</h3>
-        <p className="text-on-surface-variant max-w-xl mx-auto text-sm font-medium opacity-60">A multidisciplinary team of data scientists, urban architects, and traffic engineers defining city intelligence.</p>
+        <p className="text-on-surface max-w-xl mx-auto text-sm font-medium opacity-60">A multidisciplinary team of data scientists, urban architects, and traffic engineers defining city intelligence.</p>
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -62,6 +62,8 @@ const VisionaryTeam = () => {
 };
 
 export default VisionaryTeam;
+
+
 
 
 

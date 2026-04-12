@@ -31,7 +31,7 @@ const Sidebar = () => {
         </div>
         <div>
           <h1 className="text-lg font-black text-on-surface leading-tight tracking-tight">Nexus Mobility</h1>
-          <p className="text-[9px] text-on-surface-variant uppercase tracking-widest font-bold mt-0.5">City Planning Division</p>
+          <p className="text-[9px] text-on-surface uppercase tracking-widest font-bold mt-0.5">City Planning Division</p>
         </div>
       </div>
 
@@ -44,7 +44,7 @@ const Sidebar = () => {
               `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-semibold ${
                 isActive 
                   ? 'text-sky-400 bg-sky-400/10 shadow-sm' 
-                  : 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
+                  : 'text-on-surface hover:bg-surface-container-highest hover:text-on-surface'
               }`
             }
           >
@@ -54,7 +54,7 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="mt-auto pt-6 border-t border-slate-800 space-y-1.5">
+      <div className="mt-auto pt-6 border-t border-on-surface/10 space-y-1.5">
         {adminItems.filter((item) => item.roles.includes(role)).map((item) => (
           <NavLink
             key={item.name}
@@ -63,7 +63,7 @@ const Sidebar = () => {
               `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-semibold ${
                 isActive 
                   ? 'text-sky-400 bg-sky-400/10 shadow-sm' 
-                  : 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
+                  : 'text-on-surface hover:bg-surface-container-highest hover:text-on-surface'
               }`
             }
           >
@@ -76,7 +76,7 @@ const Sidebar = () => {
             logout();
             window.location.href = '/login';
           }}
-          className="w-full flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-error/10 hover:text-error transition-all text-left rounded-lg font-semibold"
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-on-surface hover:bg-error/10 hover:text-error transition-all text-left rounded-lg font-semibold"
         >
           <span className="material-symbols-outlined text-xl">logout</span>
           <span className="text-sm">Logout</span>
@@ -87,6 +87,8 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
 
 
 

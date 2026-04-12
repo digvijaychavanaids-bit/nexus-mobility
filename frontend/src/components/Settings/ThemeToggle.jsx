@@ -12,7 +12,7 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
             </span>
             <h3 className="text-lg font-black text-on-surface font-headline tracking-tighter uppercase antialiased">Interface Theme</h3>
           </div>
-          <p className="text-[10px] uppercase font-black tracking-[0.2em] text-on-surface-variant opacity-60">Visual System Protocol</p>
+          <p className="text-[10px] uppercase font-black tracking-[0.2em] text-on-surface opacity-60">Visual System Protocol</p>
         </div>
         
         <button 
@@ -34,7 +34,7 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
             currentTheme === 'dark' ? 'border-primary bg-primary/5' : 'border-on-surface/5 bg-transparent hover:bg-on-surface/5'
           }`}
         >
-          <div className="w-full h-16 bg-surface-container rounded-lg border border-slate-800 overflow-hidden flex shadow-inner">
+          <div className="w-full h-16 bg-surface-container rounded-lg border border-on-surface/10 overflow-hidden flex shadow-inner">
             <div className="w-6 h-full bg-surface-container-high border-r border-slate-700/50"></div>
             <div className="flex-1 p-3 space-y-2">
               <div className="w-10 h-1.5 bg-slate-700 rounded-full"></div>
@@ -42,7 +42,7 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className={`text-[10px] font-black uppercase tracking-widest ${currentTheme === 'dark' ? 'text-primary' : 'text-on-surface-variant'}`}>
+            <span className={`text-[10px] font-black uppercase tracking-widest ${currentTheme === 'dark' ? 'text-primary' : 'text-on-surface'}`}>
               High Contrast Dark
             </span>
             {currentTheme === 'dark' && <span className="material-symbols-outlined text-primary text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>}
@@ -63,7 +63,7 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className={`text-[10px] font-black uppercase tracking-widest ${currentTheme === 'light' ? 'text-primary' : 'text-on-surface-variant'}`}>
+            <span className={`text-[10px] font-black uppercase tracking-widest ${currentTheme === 'light' ? 'text-primary' : 'text-on-surface'}`}>
               Precision Light
             </span>
             {currentTheme === 'light' && <span className="material-symbols-outlined text-primary text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>}
@@ -75,6 +75,8 @@ const ThemeToggle = ({ currentTheme, onToggle }) => {
 };
 
 export default ThemeToggle;
+
+
 
 
 

@@ -147,7 +147,7 @@ const ProfileSettings = () => {
         
         <div className="flex-1 w-full space-y-6">
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-on-surface-variant tracking-widest uppercase opacity-60">Full Operator Name</label>
+            <label className="text-[10px] font-black text-on-surface tracking-widest uppercase opacity-60">Full Operator Name</label>
             <input 
               className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface focus:ring-1 focus:ring-primary focus:bg-surface-container-highest transition-all outline-none font-bold"
               type="text" 
@@ -156,9 +156,9 @@ const ProfileSettings = () => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-on-surface-variant tracking-widest uppercase opacity-60">Permanent Identifier (Email)</label>
+            <label className="text-[10px] font-black text-on-surface tracking-widest uppercase opacity-60">Permanent Identifier (Email)</label>
             <input 
-              className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface-variant cursor-not-allowed opacity-80 outline-none"
+              className="w-full bg-surface-container-highest/50 border border-on-surface/5 rounded-lg px-4 py-4 text-sm text-on-surface cursor-not-allowed opacity-80 outline-none"
               type="email" 
               value={email}
               readOnly
@@ -171,6 +171,8 @@ const ProfileSettings = () => {
 };
 
 export default ProfileSettings;
+
+
 
 
 

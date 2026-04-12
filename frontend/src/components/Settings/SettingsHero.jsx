@@ -4,7 +4,7 @@ const SettingsHero = () => {
       <h2 className="text-4xl font-headline font-extrabold tracking-tighter text-on-surface antialiased">
         System Settings
       </h2>
-      <p className="text-on-surface-variant max-w-2xl text-sm font-medium leading-relaxed opacity-80">
+      <p className="text-on-surface max-w-2xl text-sm font-medium leading-relaxed opacity-80">
         Configure your dashboard environment, notification filters, and security credentials for the Nexus Mobility platform.
       </p>
     </div>
@@ -12,6 +12,8 @@ const SettingsHero = () => {
 };
 
 export default SettingsHero;
+
+
 
 
 

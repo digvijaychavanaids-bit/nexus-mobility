@@ -20,16 +20,16 @@ const CongestionMetrics = ({ data: apiData }) => {
       <div className="flex justify-between items-center mb-10">
         <div>
           <h3 className="text-xl font-black text-on-surface uppercase tracking-tight">Congestion Flow Metrics</h3>
-          <p className="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Comparative analysis: Arterial vs. Secondary Routes</p>
+          <p className="text-[10px] text-on-surface font-black uppercase tracking-[0.2em] opacity-60">Comparative analysis: Arterial vs. Secondary Routes</p>
         </div>
         <div className="flex gap-6">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(148,204,255,0.5)]"></span>
-            <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Live Telemetry</span>
+            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">Live Telemetry</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.5)]"></span>
-            <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">ML Forecast</span>
+            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">ML Forecast</span>
           </div>
         </div>
       </div>
@@ -102,6 +102,8 @@ const CongestionMetrics = ({ data: apiData }) => {
 };
 
 export default CongestionMetrics;
+
+
 
 
 

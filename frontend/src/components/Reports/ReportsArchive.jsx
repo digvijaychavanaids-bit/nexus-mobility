@@ -58,17 +58,17 @@ const ReportRow = ({ title, date, author, authorInitial, status, size, type, cit
           </div>
           <div>
             <p className="text-sm font-black text-on-surface group-hover:text-primary transition-colors tracking-tight uppercase leading-none">{title}</p>
-            <p className="text-[10px] text-on-surface-variant mt-1.5 font-bold uppercase tracking-widest">{size}</p>
+            <p className="text-[10px] text-on-surface mt-1.5 font-bold uppercase tracking-widest">{size}</p>
           </div>
         </div>
       </td>
-      <td className="px-8 py-5 text-xs text-on-surface-variant font-black uppercase tracking-widest leading-none">{date}</td>
+      <td className="px-8 py-5 text-xs text-on-surface font-black uppercase tracking-widest leading-none">{date}</td>
       <td className="px-8 py-5">
         <div className="flex items-center gap-2">
           {authorInitial ? (
             <div className="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center text-[10px] font-black text-on-primary-container leading-none shadow-sm">{authorInitial}</div>
           ) : (
-            <span className="material-symbols-outlined text-sm text-on-surface-variant leading-none">robot_2</span>
+            <span className="material-symbols-outlined text-sm text-on-surface leading-none">robot_2</span>
           )}
           <span className="text-[10px] font-black font-headline text-on-surface uppercase tracking-widest leading-none">{author}</span>
         </div>
@@ -84,13 +84,13 @@ const ReportRow = ({ title, date, author, authorInitial, status, size, type, cit
           <button 
             onClick={handleDownload}
             disabled={downloading}
-            className="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-on-surface transition-all shadow-sm disabled:opacity-50"
+            className="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface hover:text-on-surface transition-all shadow-sm disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-lg leading-none">{downloading ? 'sync' : 'download'}</span>
           </button>
           <button 
             onClick={handleShare}
-            className="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-on-surface transition-all shadow-sm relative"
+            className="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface hover:text-on-surface transition-all shadow-sm relative"
           >
             <span className="material-symbols-outlined text-lg leading-none">{copied ? 'done' : 'share'}</span>
             <AnimatePresence>
@@ -133,40 +133,40 @@ const ReportsArchive = () => {
   const filteredReports = currentReports.filter(r => r.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <section className="bg-surface-container-low rounded-xl shadow-2xl border border-slate-800/50">
+    <section className="bg-surface-container-low rounded-xl shadow-2xl border border-on-surface/10/50">
       <div className="px-8 py-6 flex items-center justify-between border-b border-on-surface/5">
         <div className="flex items-center gap-6">
           <h3 className="text-lg font-headline font-black text-on-surface uppercase tracking-tighter antialiased">Reports Archive</h3>
-          <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
+          <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-on-surface">
             <button className="text-on-surface border-b-2 border-primary pb-1 shadow-[0_4px_10px_-2px_rgba(148,204,255,0.4)]">All Files</button>
             <button className="hover:text-on-surface pb-1 transition-colors">Shared</button>
             <button className="hover:text-on-surface pb-1 transition-colors">Starred</button>
           </div>
         </div>
         <div className="flex items-center gap-4 bg-surface-container/40 px-4 py-2 rounded-xl border border-on-surface/5">
-          <span className="material-symbols-outlined text-sm text-on-surface-variant">search</span>
+          <span className="material-symbols-outlined text-sm text-on-surface">search</span>
           <input 
             type="text" 
             placeholder="Search reports..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-on-surface-variant placeholder:font-black placeholder:uppercase placeholder:tracking-widest"
+            className="bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-on-surface placeholder:font-black placeholder:uppercase placeholder:tracking-widest"
           />
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 text-on-surface-variant hover:text-on-surface transition-colors" title="Filter"><span className="material-symbols-outlined text-lg">filter_list</span></button>
-          <button className="p-2 text-on-surface-variant hover:text-on-surface transition-colors" title="More Options"><span className="material-symbols-outlined text-lg">more_vert</span></button>
+          <button className="p-2 text-on-surface hover:text-on-surface transition-colors" title="Filter"><span className="material-symbols-outlined text-lg">filter_list</span></button>
+          <button className="p-2 text-on-surface hover:text-on-surface transition-colors" title="More Options"><span className="material-symbols-outlined text-lg">more_vert</span></button>
         </div>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-surface-container-highest/10">
-              <th className="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Report Title</th>
-              <th className="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Date Generated</th>
-              <th className="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Author</th>
-              <th className="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Status</th>
-              <th className="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-widest text-right">Actions</th>
+              <th className="px-8 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Report Title</th>
+              <th className="px-8 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Date Generated</th>
+              <th className="px-8 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Author</th>
+              <th className="px-8 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest">Status</th>
+              <th className="px-8 py-4 text-[10px] font-black text-on-surface uppercase tracking-widest text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
@@ -188,30 +188,30 @@ const ReportsArchive = () => {
         </table>
       </div>
       <div className="px-8 py-6 flex items-center justify-between border-t border-on-surface/5 font-body">
-        <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Showing <span className="text-on-surface font-black">{page === 1 ? '1 - 4' : '5 - 7'}</span> of 1,284 results</p>
+        <p className="text-[10px] text-on-surface font-bold uppercase tracking-widest">Showing <span className="text-on-surface font-black">{page === 1 ? '1 - 4' : '5 - 7'}</span> of 1,284 results</p>
         <div className="flex items-center gap-1">
           <button 
             disabled={page === 1}
             onClick={() => setPage(1)}
-            className="p-2 text-on-surface-variant hover:text-on-surface disabled:opacity-20 transition-colors"
+            className="p-2 text-on-surface hover:text-on-surface disabled:opacity-20 transition-colors"
           >
             <span className="material-symbols-outlined text-base">chevron_left</span>
           </button>
           <button 
             onClick={() => setPage(1)}
-            className={`w-8 h-8 flex items-center justify-center text-[10px] font-black rounded-md transition-all ${page === 1 ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'text-on-surface-variant hover:text-on-surface'}`}
+            className={`w-8 h-8 flex items-center justify-center text-[10px] font-black rounded-md transition-all ${page === 1 ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'text-on-surface hover:text-on-surface'}`}
           >
             1
           </button>
           <button 
             onClick={() => setPage(2)}
-            className={`w-8 h-8 flex items-center justify-center text-[10px] font-black rounded-md transition-all ${page === 2 ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'text-on-surface-variant hover:text-on-surface'}`}
+            className={`w-8 h-8 flex items-center justify-center text-[10px] font-black rounded-md transition-all ${page === 2 ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'text-on-surface hover:text-on-surface'}`}
           >
             2
           </button>
           <button 
             onClick={() => setPage(page < 3 ? page + 1 : page)}
-            className="p-2 text-on-surface-variant hover:text-on-surface disabled:opacity-20 transition-colors"
+            className="p-2 text-on-surface hover:text-on-surface disabled:opacity-20 transition-colors"
           >
             <span className="material-symbols-outlined text-base">chevron_right</span>
           </button>
@@ -222,6 +222,8 @@ const ReportsArchive = () => {
 };
 
 export default ReportsArchive;
+
+
 
 
 

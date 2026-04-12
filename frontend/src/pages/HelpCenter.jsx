@@ -29,7 +29,7 @@ const HelpCenter = () => {
                 <span className="material-symbols-outlined text-6xl">contact_support</span>
              </div>
              <h4 className="text-xl font-black font-headline text-on-surface mb-2 uppercase tracking-tighter antialiased">Still need help?</h4>
-             <p className="text-[10px] text-on-surface-variant mb-6 uppercase font-black tracking-widest opacity-60 leading-relaxed">Our designated urban planners are available 24/7 for technical escalation community.</p>
+             <p className="text-[10px] text-on-surface mb-6 uppercase font-black tracking-widest opacity-60 leading-relaxed">Our designated urban planners are available 24/7 for technical escalation community.</p>
              <button className="w-full py-4 rounded-full bg-surface-container-highest text-on-surface text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all shadow-xl active:scale-95">
                 Start Live Session
              </button>
@@ -44,7 +44,7 @@ const HelpCenter = () => {
         <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>chat_bubble</span>
       </button>
 
-      <footer className="mt-12 pt-8 border-t border-slate-800/50 flex justify-between items-center text-on-surface-variant text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+      <footer className="mt-12 pt-8 border-t border-on-surface/10/50 flex justify-between items-center text-on-surface text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
         <span>© 2026 Nexus Mobility Support • Protocol 9.1</span>
         <div className="flex gap-6">
           <a className="hover:text-primary transition-colors" href="#">Service SLA</a>
@@ -57,6 +57,8 @@ const HelpCenter = () => {
 };
 
 export default HelpCenter;
+
+
 
 
 
