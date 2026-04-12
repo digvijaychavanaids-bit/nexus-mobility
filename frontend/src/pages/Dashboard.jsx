@@ -55,7 +55,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
-    const interval = setInterval(() => fetchDashboardData(true), 30000);
+    const interval = setInterval(() => fetchDashboardData(true), 3000); // Accelerated 3s sync
     return () => clearInterval(interval);
   }, [fetchDashboardData]);
 
@@ -74,9 +74,15 @@ const Dashboard = () => {
           <h1 className="text-2xl font-black font-headline text-white uppercase tracking-tighter antialiased">
             Operational Hub
           </h1>
-          <p className="text-[10px] text-primary font-black uppercase tracking-[0.25em] mt-1 opacity-80">
-            Real-Time Municipal Terminal Grid
-          </p>
+          <div className="flex items-center gap-3 mt-1">
+            <p className="text-[10px] text-primary font-black uppercase tracking-[0.25em] opacity-80">
+              Real-Time Municipal Terminal Grid
+            </p>
+            <div className="flex items-center gap-1.5 px-2 py-0.5 bg-error/10 border border-error/20 rounded-full">
+              <span className="w-1 h-1 bg-error rounded-full animate-ping" />
+              <span className="text-[8px] font-black text-error uppercase tracking-widest">Live Stream</span>
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
