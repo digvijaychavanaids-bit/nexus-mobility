@@ -174,7 +174,7 @@ const PollutionInsights = () => {
       </AnimatePresence>
 
       <footer className="mt-24 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.3em] opacity-40">
-        <div>© 2024 Nexus Environmental Protocol • V7.2.0-Alpha</div>
+        <div>© 2026 Nexus Environmental Protocol • V7.2.0-Alpha</div>
         <div className="flex items-center gap-10">
           <a className="hover:text-tertiary transition-colors cursor-pointer" href="#compliance">Regulatory Compliance</a>
           <a className="hover:text-tertiary transition-colors cursor-pointer" href="#sensors">Sensor Integrity</a>

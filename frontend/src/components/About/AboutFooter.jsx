@@ -6,7 +6,7 @@ const AboutFooter = () => {
           <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
             <span className="material-symbols-outlined text-lg">transit_enterexit</span>
           </div>
-          <span className="text-sm font-black tracking-widest text-white uppercase antialiased">Nexus Mobility © 2024</span>
+          <span className="text-sm font-black tracking-widest text-white uppercase antialiased">Nexus Mobility © 2026</span>
         </div>
         
         <div className="flex gap-12 text-[10px] text-on-surface-variant font-black uppercase tracking-[0.3em] opacity-60">

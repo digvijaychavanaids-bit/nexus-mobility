@@ -40,7 +40,7 @@ const SettingsPage = () => {
       <SettingsFooter onSave={handleSave} onCancel={handleCancel} />
 
       <footer className="mt-12 pt-8 border-t border-slate-800/50 flex justify-between items-center text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-        <span>© 2024 Nexus Mobility Systems • Security Protocol 8.41</span>
+        <span>© 2026 Nexus Mobility Systems • Security Protocol 8.41</span>
         <div className="flex gap-6">
           <a className="hover:text-primary transition-colors" href="#">System Audit</a>
           <a className="hover:text-primary transition-colors" href="#">Privacy Vault</a>

@@ -33,7 +33,7 @@ const AdminPanel = () => {
       </div>
 
       <footer className="mt-12 pt-8 border-t border-slate-800/50 flex justify-between items-center text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-        <span>© 2024 Nexus Mobility Systems • v4.8.2-delta</span>
+        <span>© 2026 Nexus Mobility Systems • v4.8.2-delta</span>
         <div className="flex gap-6">
           <a className="hover:text-primary transition-colors" href="#">Privacy Protocol</a>
           <a className="hover:text-primary transition-colors" href="#">Compliance</a>
