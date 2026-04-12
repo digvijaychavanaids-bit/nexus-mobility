@@ -67,8 +67,8 @@ const ProfileSettings = () => {
         const userId = sessionStorage.getItem('user_id');
         if (userId) {
           localStorage.setItem(`nexus_avatar_${userId}`, dataUrl);
-          // Trigger global identity sync
-          window.dispatchEvent(new Event('avatarUpdate'));
+          // Trigger global identity sync for Topbar and other modules
+          window.dispatchEvent(new Event('identityUpdate'));
         }
       };
       img.src = e.target?.result;
@@ -91,7 +91,14 @@ const ProfileSettings = () => {
     setLoading(true);
     try {
       await api.put('/auth/me', { name });
-      sessionStorage.setItem('name', name); // Update current session name
+      
+      // Sync identity across all storage layers
+      sessionStorage.setItem('name', name);
+      localStorage.setItem('name', name);
+      
+      // Broadcast update to Topbar and Navigation
+      window.dispatchEvent(new Event('identityUpdate'));
+      
       setMessage({ type: 'success', text: 'Operational identity updated.' });
     } catch (err) {
       setMessage({ type: 'error', text: 'Registry update refused.' });

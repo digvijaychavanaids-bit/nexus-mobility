@@ -38,8 +38,8 @@ const Topbar = ({ user: initialUser }) => {
       if (savedAvatar) setAvatar(savedAvatar);
       
       setUser({
-        name: sessionStorage.getItem('name') || initialUser?.name || 'System User',
-        role: (sessionStorage.getItem('role')) || initialUser?.role || 'User'
+        name: sessionStorage.getItem('name') || localStorage.getItem('name') || initialUser?.name || 'System User',
+        role: sessionStorage.getItem('role') || localStorage.getItem('role') || initialUser?.role || 'User'
       });
       fetchNotifications();
     };
@@ -49,12 +49,12 @@ const Topbar = ({ user: initialUser }) => {
     // Poll notifications every 30 seconds
     const interval = setInterval(fetchNotifications, 30000);
 
-    window.addEventListener('avatarUpdate', handleUpdate);
+    window.addEventListener('identityUpdate', handleUpdate);
     window.addEventListener('storage', (e) => {
-        if (e.key === avatarKey) handleUpdate();
+        if (e.key === avatarKey || e.key === 'name' || e.key === 'role') handleUpdate();
     });
     return () => {
-      window.removeEventListener('avatarUpdate', handleUpdate);
+      window.removeEventListener('identityUpdate', handleUpdate);
       window.removeEventListener('storage', handleUpdate);
       clearInterval(interval);
     };
