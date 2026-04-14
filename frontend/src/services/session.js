@@ -20,7 +20,7 @@ const isLocal = typeof window !== 'undefined' &&
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') ?? 
-  (isLocal ? 'http://127.0.0.1:8001/api' : 'https://nexus-mobility-backend.onrender.com/api');
+  (isLocal ? 'http://127.0.0.1:8000/api' : 'https://nexus-mobility-backend.onrender.com/api');
 
 export const getToken = () => sessionStorage.getItem('nexus_token') || localStorage.getItem('nexus_token');
 
