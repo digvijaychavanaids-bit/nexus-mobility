@@ -70,8 +70,8 @@ const CSVUpload = () => {
       setError('Only CSV files are accepted.');
       return;
     }
-    if (f.size > 5 * 1024 * 1024) {
-      setError('File exceeds the 5 MB size limit.');
+    if (f.size > 10 * 1024 * 1024) {
+      setError('File exceeds the 10 MB size limit.');
       return;
     }
     setFile(f);
@@ -96,6 +96,7 @@ const CSVUpload = () => {
     try {
       const res = await api.post('/predictions/upload-csv', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 120000,
       });
       setResult(res.data);
     } catch (err) {
@@ -157,7 +158,7 @@ const CSVUpload = () => {
         ) : (
           <>
             <p className="text-on-surface font-black text-sm">Drag &amp; drop your CSV here, or click to browse</p>
-            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-40">Max 5 MB · CSV only</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-40">Max 10 MB · CSV only</p>
           </>
         )}
       </div>
@@ -265,7 +266,7 @@ const CSVUpload = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-70">
-                    Prediction Results ({result.predictions.length})
+                  Prediction Results ({result.predictions.length}{result.predictions_truncated ? ` of ${result.processed}` : ''})
                   </h4>
                   <button
                     onClick={() => downloadBlob(resultsToCsv(result.predictions), 'predictions_results.csv', 'text/csv')}
