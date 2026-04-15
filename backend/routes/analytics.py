@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 
 from services.auth_handler import get_current_analyst_or_admin, get_current_user
 from services.db import add_log, log_activity
-from services.ml import predict_congestion, city_factor, DAY_FACTORS
+from services.ml import predict_congestion, city_factor
 
 router = APIRouter()
 
