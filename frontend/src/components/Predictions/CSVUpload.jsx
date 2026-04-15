@@ -1,18 +1,19 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../services/api';
+import { getCurrentRole } from '../../services/session';
 
-const SAMPLE_CSV = `date,time,city,location,weather,is_holiday,is_event
-2026-05-20,9 AM,Delhi,Connaught Place,clear,no,no
-2026-05-20,6 PM,Delhi,Lajpat Nagar,rainy,no,yes
-2026-05-21,8 AM,Mumbai,Andheri,foggy,no,no
-2026-05-25,5 PM,Bangalore,Whitefield,stormy,yes,no
-2026-06-15,10 AM,Chennai,T. Nagar,clear,no,no
-2026-07-03,8:30 AM,Hyderabad,HITEC City,clear,no,yes
-2026-07-03,7 PM,Pune,Wagholi,rainy,no,no
-2026-07-04,6:30 PM,Pune,Hadaparsar,clear,no,yes
-2026-08-15,9 AM,Delhi,India Gate,clear,yes,yes
-2026-09-01,7:45 AM,Pune,Hadapsar,foggy,no,no
+const SAMPLE_CSV = `date,time,city,location,weather,is_holiday,is_event,vehicle_count,pm2_5_ugm3,pm10_ugm3,co_ugm3,no2_ugm3
+2026-05-20,9 AM,Delhi,Connaught Place,clear,no,no,4450,88,145,990,43
+2026-05-20,6 PM,Delhi,Lajpat Nagar,rainy,no,yes,4680,96,162,1120,49
+2026-05-21,8 AM,Mumbai,Andheri,foggy,no,no,5220,52,81,520,27
+2026-05-25,5 PM,Bangalore,Whitefield,stormy,yes,no,4950,43,67,470,23
+2026-06-15,10 AM,Chennai,T. Nagar,clear,no,no,3810,38,58,430,19
+2026-07-03,8:30 AM,Hyderabad,HITEC City,clear,no,yes,5040,41,64,455,21
+2026-07-03,7 PM,Pune,Wagholi,rainy,no,no,3990,47,73,490,24
+2026-07-04,6:30 PM,Pune,Hadaparsar,clear,no,yes,4380,54,82,525,26
+2026-08-15,9 AM,Delhi,India Gate,clear,yes,yes,4210,91,152,1010,44
+2026-09-01,7:45 AM,Pune,Hadapsar,foggy,no,no,4520,58,88,560,29
 `;
 
 function downloadBlob(content, filename, mime) {
@@ -26,7 +27,7 @@ function downloadBlob(content, filename, mime) {
 }
 
 function resultsToCsv(predictions) {
-  const header = 'date,day,time,city,location,weather,is_holiday,is_event,congestion_percent,traffic_status,advice';
+  const header = 'date,day,time,city,location,weather,is_holiday,is_event,vehicle_count,congestion_percent,pollution_index,pollution_status,predicted_pm2_5_ugm3,predicted_pm10_ugm3,predicted_co_ugm3,predicted_no2_ugm3,traffic_status,advice';
   const rows = predictions.map((p) =>
     [
       p.date,
@@ -37,7 +38,14 @@ function resultsToCsv(predictions) {
       p.weather,
       p.is_holiday ? 'yes' : 'no',
       p.is_event ? 'yes' : 'no',
+      p.vehicle_count,
       p.congestion,
+      p.pollution_index ?? '',
+      p.pollution_status ?? '',
+      p.predicted_pm2_5_ugm3 ?? '',
+      p.predicted_pm10_ugm3 ?? '',
+      p.predicted_co_ugm3 ?? '',
+      p.predicted_no2_ugm3 ?? '',
       p.status,
       `"${p.advice}"`,
     ].join(',')
@@ -72,12 +80,45 @@ const InsightCard = ({ icon, label, value, sub, color = 'text-primary' }) => (
 );
 
 const CSVUpload = () => {
+  const role = getCurrentRole();
+  const isUserPanel = role === 'User';
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [publishedItems, setPublishedItems] = useState([]);
+  const [publishAck, setPublishAck] = useState(null);
   const [error, setError] = useState(null);
   const inputRef = useRef(null);
+  const activeResult = result || { predictions: [], insights: {} };
+
+  useEffect(() => {
+    const fetchPublished = async () => {
+      if (!isUserPanel) return;
+      try {
+        const res = await api.get('/predictions/user-panel-results?limit=5');
+        const items = Array.isArray(res.data?.items) ? res.data.items : [];
+        setPublishedItems(items);
+        if (!result && items.length > 0) {
+          setResult({
+            filename: items[0].filename,
+            total_rows: items[0].total_rows,
+            processed: items[0].processed,
+            failed: items[0].failed,
+            predictions: items[0].predictions || [],
+            predictions_truncated: items[0].predictions_truncated,
+            errors: items[0].errors || [],
+            errors_truncated: items[0].errors_truncated,
+            insights: items[0].insights || {},
+            timestamp: items[0].timestamp || items[0].created_at,
+          });
+        }
+      } catch {
+        // Do not block upload UI on fetch failure.
+      }
+    };
+    fetchPublished();
+  }, [isUserPanel, result]);
 
   const handleFile = (f) => {
     setError(null);
@@ -114,7 +155,11 @@ const CSVUpload = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 120000,
       });
-      setResult(res.data);
+      if (isUserPanel) {
+        setResult(res.data);
+      } else {
+        setPublishAck(res.data);
+      }
     } catch (err) {
       const detail = err?.response?.data?.detail;
       setError(detail || 'Upload failed. Please try again.');
@@ -126,6 +171,7 @@ const CSVUpload = () => {
   const handleReset = () => {
     setFile(null);
     setResult(null);
+    setPublishAck(null);
     setError(null);
     if (inputRef.current) inputRef.current.value = '';
   };
@@ -165,6 +211,14 @@ const CSVUpload = () => {
           <div className="space-y-1">
             <p className="font-black text-on-surface text-xs uppercase tracking-tighter">☁️ weather (Optional)</p>
             <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">clear, rainy, foggy, stormy</p>
+          </div>
+          <div className="space-y-1">
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🚗 vehicle_count (Optional)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">Observed count to calibrate congestion</p>
+          </div>
+          <div className="space-y-1">
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🌫️ pollution fields (Optional)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">pm2_5_ugm3, pm10_ugm3, co_ugm3, no2_ugm3</p>
           </div>
           <div className="space-y-1">
             <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🎊 is_holiday (Optional)</p>
@@ -241,40 +295,48 @@ const CSVUpload = () => {
 
       {/* Results */}
       <AnimatePresence>
-        {result && !loading && (
+        {(result || publishAck) && !loading && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <InsightCard
-                icon="analytics"
-                label="Avg Congestion"
-                value={`${result.insights?.average_congestion || 0}%`}
-                color="text-primary"
-              />
-              <InsightCard
-                icon="warning"
-                label="Peak Load"
-                value={result.insights?.worst_time ? `${result.insights.worst_time.time}` : '—'}
-                sub={result.insights?.worst_time ? `${result.insights.worst_time.date_label} · ${result.insights.worst_time.city}` : ''}
-                color="text-red-400"
-              />
-              <InsightCard
-                icon="thumb_up"
-                label="Clearance"
-                value={result.insights?.best_time ? `${result.insights.best_time.time}` : '—'}
-                sub={result.insights?.best_time ? `${result.insights.best_time.date_label} · ${result.insights.best_time.city}` : ''}
-                color="text-green-400"
-              />
-              <InsightCard
-                icon="traffic"
-                label="Critical Nodes"
-                value={result.insights?.high_traffic_count || 0}
-                sub={`Impacted Slots`}
-                color="text-orange-400"
-              />
-            </div>
+            {isUserPanel && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <InsightCard
+                  icon="analytics"
+                  label="Avg Congestion"
+                  value={`${activeResult.insights?.average_congestion || 0}%`}
+                  color="text-primary"
+                />
+                <InsightCard
+                  icon="warning"
+                  label="Peak Load"
+                  value={activeResult.insights?.worst_time ? `${activeResult.insights.worst_time.time}` : '—'}
+                  sub={activeResult.insights?.worst_time ? `${activeResult.insights.worst_time.date_label} · ${activeResult.insights.worst_time.city}` : ''}
+                  color="text-red-400"
+                />
+                <InsightCard
+                  icon="thumb_up"
+                  label="Clearance"
+                  value={activeResult.insights?.best_time ? `${activeResult.insights.best_time.time}` : '—'}
+                  sub={activeResult.insights?.best_time ? `${activeResult.insights.best_time.date_label} · ${activeResult.insights.best_time.city}` : ''}
+                  color="text-green-400"
+                />
+                <InsightCard
+                  icon="traffic"
+                  label="Critical Nodes"
+                  value={activeResult.insights?.high_traffic_count || 0}
+                  sub={`Impacted Slots`}
+                  color="text-orange-400"
+                />
+              </div>
+            )}
 
-            {Array.isArray(result.insights?.city_wise) && result.insights.city_wise.length > 0 && (
+            {isUserPanel && publishedItems.length > 0 && (
+              <p className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-50">
+                Published batches available: {publishedItems.length}
+              </p>
+            )}
+
+            {Array.isArray(activeResult.insights?.city_wise) && activeResult.insights.city_wise.length > 0 && (
               <div className="space-y-4">
                 <h4 className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-70">
                   City-wise Summary
@@ -291,7 +353,7 @@ const CSVUpload = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-on-surface/5">
-                      {result.insights.city_wise.map((row) => (
+                      {activeResult.insights.city_wise.map((row) => (
                         <tr key={row.city} className="group hover:bg-on-surface/[0.03] transition-colors">
                           <td className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface">{row.city}</td>
                           <td className="px-6 py-4 text-[10px] font-black text-on-surface">{row.rows}</td>
@@ -306,14 +368,14 @@ const CSVUpload = () => {
               </div>
             )}
 
-            {result.predictions.length > 0 && (
+            {isUserPanel && activeResult.predictions.length > 0 && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-70">
                     Neural Flow Analysis Output
                   </h4>
                   <button
-                    onClick={() => downloadBlob(resultsToCsv(result.predictions), 'batch_predictions_report.csv', 'text/csv')}
+                    onClick={() => downloadBlob(resultsToCsv(activeResult.predictions), 'batch_predictions_report.csv', 'text/csv')}
                     className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-primary hover:opacity-80 transition-opacity"
                   >
                     <span className="material-symbols-outlined text-base">file_download</span>
@@ -329,11 +391,12 @@ const CSVUpload = () => {
                         <th className="px-6 py-4">Location</th>
                         <th className="px-6 py-4">Factors</th>
                         <th className="px-6 py-4">Congestion</th>
+                        <th className="px-6 py-4">Pollution</th>
                         <th className="px-6 py-4">Advisory</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-on-surface/5">
-                      {result.predictions.map((p, i) => (
+                      {activeResult.predictions.map((p, i) => (
                         <tr key={i} className="group hover:bg-on-surface/[0.03] transition-colors">
                           <td className="px-6 py-5">
                             <p className="text-xs font-black text-on-surface uppercase tracking-tight">{p.time}</p>
@@ -358,6 +421,12 @@ const CSVUpload = () => {
                             <StatusBadge status={p.status} congestion={p.congestion} />
                           </td>
                           <td className="px-6 py-5">
+                            <div className="flex flex-col gap-1">
+                              <span className="text-[9px] font-black uppercase tracking-widest text-on-surface">{p.pollution_status || '—'}</span>
+                              <span className="text-[9px] font-bold text-on-surface opacity-50">AQI {p.pollution_index ?? '—'}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-5">
                             <p className="text-[10px] font-medium text-on-surface opacity-60 leading-relaxed max-w-[200px] italic">"{p.advice}"</p>
                           </td>
                         </tr>
@@ -365,6 +434,17 @@ const CSVUpload = () => {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+
+            {!isUserPanel && publishAck?.published_to_user_panel && (
+              <div className="rounded-[2rem] border border-primary/20 bg-primary/10 p-6">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary">
+                  CSV processed and published to User panel.
+                </p>
+                <p className="mt-2 text-[10px] font-bold uppercase tracking-wider text-on-surface opacity-70">
+                  Processed: {publishAck.processed} • Failed: {publishAck.failed} • Result ID: {publishAck.result_id}
+                </p>
               </div>
             )}
           </motion.div>

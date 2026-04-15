@@ -85,6 +85,7 @@ def default_db() -> dict[str, Any]:
         "contacts": [],
         "user_activity": [],
         "bookmarks": [],
+        "prediction_results": [],
     }
 
 
@@ -96,6 +97,7 @@ def ensure_db_shape(db: dict[str, Any]) -> dict[str, Any]:
     shaped.setdefault("contacts", [])
     shaped.setdefault("user_activity", [])
     shaped.setdefault("bookmarks", [])
+    shaped.setdefault("prediction_results", [])
 
     admin_found = any(user["email"] == "admin@smart.com" for user in shaped["users"])
     if not admin_found:
@@ -283,3 +285,17 @@ def remove_bookmark(user_email: str, city: str) -> None:
         )
     ]
     save_db(db)
+
+
+def add_prediction_result(result: dict[str, Any]) -> None:
+    db = get_db()
+    items = db.get("prediction_results", [])
+    items.append(result)
+    db["prediction_results"] = items[-50:]
+    save_db(db)
+
+
+def get_prediction_results(limit: int = 10) -> list[dict[str, Any]]:
+    if limit <= 0:
+        return []
+    return get_db().get("prediction_results", [])[-limit:][::-1]

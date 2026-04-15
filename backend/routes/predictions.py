@@ -8,8 +8,8 @@ from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-from services.auth_handler import get_current_analyst_or_admin, get_current_user
-from services.db import add_log, log_activity
+from services.auth_handler import get_current_analyst_or_admin, get_current_user, require_roles
+from services.db import add_log, add_prediction_result, get_prediction_results, log_activity
 from services.ml import predict_traffic
 from utils.locations import canonicalize_location, get_cities, get_locations_for_city
 
@@ -18,6 +18,7 @@ router = APIRouter()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 VALID_CITIES = set(get_cities())
 DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+POLLUTION_COLUMNS = {"pm2_5_ugm3", "pm10_ugm3", "co_ugm3", "no2_ugm3"}
 
 def canonical_city(city: str) -> str:
     city_map = {k.lower(): k for k in VALID_CITIES}
@@ -116,6 +117,78 @@ def _build_city_wise_insights(results: list[dict]) -> list[dict]:
     city_summary.sort(key=lambda x: x["average_congestion"], reverse=True)
     return city_summary
 
+
+def _to_float(value) -> float | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    if text == "":
+        return None
+    try:
+        return float(text)
+    except (TypeError, ValueError):
+        return None
+
+
+def _clamp(value: float, low: float, high: float) -> float:
+    return min(max(value, low), high)
+
+
+def _apply_vehicle_hint(vehicle_count: int, congestion: float, vehicle_hint: float | None) -> tuple[int, float]:
+    if vehicle_hint is None or vehicle_hint <= 0:
+        return vehicle_count, congestion
+
+    hinted = int(round(vehicle_hint))
+    blended_vehicle = int(round((vehicle_count + hinted) / 2))
+    ratio = _clamp(hinted / max(vehicle_count, 1), 0.7, 1.35)
+    adjusted = round(_clamp(congestion * (0.75 + (0.25 * ratio)), 5.0, 100.0), 1)
+    return blended_vehicle, adjusted
+
+
+def _predict_pollution_metrics(
+    congestion: float,
+    vehicle_count: int,
+    weather: str,
+    pm25_input: float | None = None,
+    pm10_input: float | None = None,
+    co_input: float | None = None,
+    no2_input: float | None = None,
+) -> dict:
+    weather_factor = {"clear": 1.0, "rainy": 0.9, "foggy": 1.18, "stormy": 1.08}.get(
+        str(weather).lower(), 1.0
+    )
+
+    base_pm25 = pm25_input if pm25_input is not None else (16 + congestion * 0.85 + vehicle_count / 360)
+    base_pm10 = pm10_input if pm10_input is not None else (24 + congestion * 1.15 + vehicle_count / 250)
+    base_co = co_input if co_input is not None else (250 + congestion * 4.2 + vehicle_count * 0.06)
+    base_no2 = no2_input if no2_input is not None else (8 + congestion * 0.35 + vehicle_count / 520)
+
+    pm25 = round(_clamp(base_pm25 * weather_factor, 8.0, 500.0), 1)
+    pm10 = round(_clamp(base_pm10 * weather_factor, 12.0, 700.0), 1)
+    co = round(_clamp(base_co * weather_factor, 100.0, 5000.0), 1)
+    no2 = round(_clamp(base_no2 * weather_factor, 5.0, 400.0), 1)
+
+    pollution_index = round(
+        _clamp((pm25 * 0.5) + (pm10 * 0.2) + ((co / 20) * 0.2) + (no2 * 0.1), 5.0, 500.0), 1
+    )
+    if pollution_index >= 200:
+        pollution_status = "Hazardous"
+    elif pollution_index >= 120:
+        pollution_status = "Poor"
+    elif pollution_index >= 70:
+        pollution_status = "Moderate"
+    else:
+        pollution_status = "Good"
+
+    return {
+        "pollution_index": pollution_index,
+        "pollution_status": pollution_status,
+        "predicted_pm2_5_ugm3": pm25,
+        "predicted_pm10_ugm3": pm10,
+        "predicted_co_ugm3": co,
+        "predicted_no2_ugm3": no2,
+    }
+
 # ── Single Prediction ─────────────────────────────────────────────────────
 
 class SinglePredictionRequest(BaseModel):
@@ -198,6 +271,11 @@ class BatchRow(BaseModel):
     weather: str = "clear"
     is_holiday: bool = False
     is_event: bool = False
+    vehicle_count: Optional[float] = None
+    pm2_5_ugm3: Optional[float] = None
+    pm10_ugm3: Optional[float] = None
+    co_ugm3: Optional[float] = None
+    no2_ugm3: Optional[float] = None
 
 class BatchPredictionRequest(BaseModel):
     rows: List[BatchRow]
@@ -241,8 +319,21 @@ def predict_batch(data: BatchPredictionRequest, current_user: dict = Depends(get
             is_holiday=row.is_holiday,
             is_event=row.is_event
         )
-        congestion = pred_result["congestion"]
+        vehicle_count, congestion = _apply_vehicle_hint(
+            pred_result["vehicle_count"],
+            pred_result["congestion"],
+            row.vehicle_count,
+        )
         status = _traffic_status(congestion)
+        pollution = _predict_pollution_metrics(
+            congestion=congestion,
+            vehicle_count=vehicle_count,
+            weather=row.weather,
+            pm25_input=row.pm2_5_ugm3,
+            pm10_input=row.pm10_ugm3,
+            co_input=row.co_ugm3,
+            no2_input=row.no2_ugm3,
+        )
 
         results.append({
             "row": row_num,
@@ -255,12 +346,13 @@ def predict_batch(data: BatchPredictionRequest, current_user: dict = Depends(get
             "location": location,
             "weather": row.weather,
             "congestion": congestion,
-            "vehicle_count": pred_result["vehicle_count"],
+            "vehicle_count": vehicle_count,
             "status": status["level"],
             "emoji": status["emoji"],
             "advice": status["advice"],
             "is_weekend": day_of_week >= 5,
             "peak_hour": 7 <= parsed_hour <= 10 or 17 <= parsed_hour <= 20,
+            **pollution,
         })
 
     if results:
@@ -323,13 +415,29 @@ def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
         weather = str(row.get("weather", "clear")).lower()
         is_holiday = str(row.get("is_holiday", "no")).lower() in ["yes", "y", "true", "1"]
         is_event = str(row.get("is_event", "no")).lower() in ["yes", "y", "true", "1"]
+        vehicle_hint = _to_float(row.get("vehicle_count"))
+        pm25_input = _to_float(row.get("pm2_5_ugm3")) or _to_float(row.get("pm2.5_ugm3"))
+        pm10_input = _to_float(row.get("pm10_ugm3"))
+        co_input = _to_float(row.get("co_ugm3"))
+        no2_input = _to_float(row.get("no2_ugm3"))
 
         pred_result = predict_traffic(
             hour=parsed_hour, city=city, location=location, day_of_week=day_of_week, 
             month=month, weather=weather, is_holiday=is_holiday, is_event=is_event
         )
-        congestion = pred_result["congestion"]
+        vehicle_count, congestion = _apply_vehicle_hint(
+            pred_result["vehicle_count"], pred_result["congestion"], vehicle_hint
+        )
         status = _traffic_status(congestion)
+        pollution = _predict_pollution_metrics(
+            congestion=congestion,
+            vehicle_count=vehicle_count,
+            weather=weather,
+            pm25_input=pm25_input,
+            pm10_input=pm10_input,
+            co_input=co_input,
+            no2_input=no2_input,
+        )
 
         results.append({
             "row": row_num,
@@ -344,12 +452,13 @@ def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
             "is_holiday": is_holiday,
             "is_event": is_event,
             "congestion": congestion,
-            "vehicle_count": pred_result["vehicle_count"],
+            "vehicle_count": vehicle_count,
             "status": status["level"],
             "emoji": status["emoji"],
             "advice": status["advice"],
             "is_weekend": day_of_week >= 5,
             "peak_hour": 7 <= parsed_hour <= 10 or 17 <= parsed_hour <= 20,
+            **pollution,
         })
     return results, errors
 
@@ -387,7 +496,7 @@ async def upload_csv(file: UploadFile = File(...), current_user: dict = Depends(
     preview_errors = errors[:100]
     city_wise = _build_city_wise_insights(results)
 
-    return {
+    response_payload = {
         "filename": file.filename,
         "total_rows": len(df),
         "processed": len(results),
@@ -405,6 +514,65 @@ async def upload_csv(file: UploadFile = File(...), current_user: dict = Depends(
         },
         "timestamp": datetime.utcnow().isoformat(),
     }
+
+    saved_result_id = str(uuid.uuid4())
+    add_prediction_result(
+        {
+            "id": saved_result_id,
+            "created_at": datetime.utcnow().isoformat(),
+            "source": "upload-csv",
+            "uploaded_by": current_user["sub"],
+            "uploader_role": current_user.get("role", "User"),
+            "payload": response_payload,
+        }
+    )
+
+    if current_user.get("role") != "User":
+        return {
+            "message": "CSV processed and published to User panel.",
+            "result_id": saved_result_id,
+            "filename": file.filename,
+            "total_rows": len(df),
+            "processed": len(results),
+            "failed": len(errors),
+            "timestamp": datetime.utcnow().isoformat(),
+            "published_to_user_panel": True,
+        }
+
+    response_payload["result_id"] = saved_result_id
+    return response_payload
+
+
+@router.get("/user-panel-results")
+def get_user_panel_results(
+    limit: int = Query(default=5, ge=1, le=20),
+    current_user: dict = Depends(require_roles("User")),
+):
+    records = get_prediction_results(limit)
+    items = []
+    for record in records:
+        if record.get("uploader_role") == "User":
+            continue
+        payload = record.get("payload", {})
+        items.append(
+            {
+                "result_id": record.get("id"),
+                "created_at": record.get("created_at"),
+                "uploaded_by": record.get("uploaded_by"),
+                "uploader_role": record.get("uploader_role"),
+                "filename": payload.get("filename"),
+                "total_rows": payload.get("total_rows"),
+                "processed": payload.get("processed"),
+                "failed": payload.get("failed"),
+                "predictions": payload.get("predictions", []),
+                "predictions_truncated": payload.get("predictions_truncated", False),
+                "errors": payload.get("errors", []),
+                "errors_truncated": payload.get("errors_truncated", False),
+                "insights": payload.get("insights", {}),
+                "timestamp": payload.get("timestamp"),
+            }
+        )
+    return {"items": items}
 
 # ── Forecast (next 6 hours) ──────────────────────────────────────────────
 
