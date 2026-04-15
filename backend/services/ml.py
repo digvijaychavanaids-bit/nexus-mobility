@@ -3,6 +3,7 @@ import os
 import pickle
 from pathlib import Path
 from datetime import datetime
+from threading import Lock
 from utils.locations import encode_city, encode_location, get_location_base_volume
 
 logger = logging.getLogger(__name__)
@@ -18,6 +19,13 @@ WEATHER_MAPPING = {
     "stormy": 3
 }
 
+_MODEL_CACHE = {
+    "path": None,
+    "mtime": None,
+    "model": None,
+}
+_MODEL_LOCK = Lock()
+
 def get_model_path() -> Path | None:
     if PRIMARY_MODEL_PATH.exists():
         return PRIMARY_MODEL_PATH
@@ -26,10 +34,33 @@ def get_model_path() -> Path | None:
 def load_model():
     model_path = get_model_path()
     if model_path is None:
+        with _MODEL_LOCK:
+            _MODEL_CACHE["path"] = None
+            _MODEL_CACHE["mtime"] = None
+            _MODEL_CACHE["model"] = None
         return None
+
+    try:
+        model_mtime = model_path.stat().st_mtime
+    except OSError:
+        return None
+
+    with _MODEL_LOCK:
+        if (
+            _MODEL_CACHE["model"] is not None
+            and _MODEL_CACHE["path"] == str(model_path)
+            and _MODEL_CACHE["mtime"] == model_mtime
+        ):
+            return _MODEL_CACHE["model"]
+
     try:
         with model_path.open("rb") as file:
-            return pickle.load(file)
+            model = pickle.load(file)
+            with _MODEL_LOCK:
+                _MODEL_CACHE["path"] = str(model_path)
+                _MODEL_CACHE["mtime"] = model_mtime
+                _MODEL_CACHE["model"] = model
+            return model
     except Exception as exc:
         logger.warning("Unable to load traffic model: %s", exc)
         return None

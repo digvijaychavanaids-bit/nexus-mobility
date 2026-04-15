@@ -153,7 +153,7 @@ const CSVUpload = () => {
     try {
       const res = await api.post('/predictions/upload-csv', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 120000,
+        timeout: 300000,
       });
       if (isUserPanel) {
         setResult(res.data);
