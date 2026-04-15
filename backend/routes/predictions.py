@@ -27,18 +27,7 @@ def canonical_city(city: str) -> str:
 # ── Helper Functions ──────────────────────────────────────────────────────
 
 def _parse_date(raw: str) -> datetime | None:
-    """Parse flexible date: today, tomorrow, 2026-04-15, 15/04/2026, Apr 15, etc."""
-    import re
-    text = str(raw).strip().lower()
-    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-
-    if text in ("today", "aaj"):
-        return today
-    if text in ("tomorrow", "kal", "tmrw"):
-        return today + timedelta(days=1)
-    if text in ("yesterday",):
-        return today - timedelta(days=1)
-
+    """Parse flexible date: 2026-04-15, 15/04/2026, Apr 15, 2026, etc."""
     # Try common formats
     for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%m/%d/%Y", "%B %d, %Y", "%b %d, %Y", "%d %b %Y", "%d %B %Y"):
         try:
@@ -96,15 +85,7 @@ def _hour_to_ampm(h: int) -> str:
 
 
 def _friendly_date_label(dt: datetime) -> str:
-    today = datetime.now().date()
-    if dt.date() == today:
-        return "Today"
-    elif dt.date() == today + timedelta(days=1):
-        return "Tomorrow"
-    elif dt.date() == today - timedelta(days=1):
-        return "Yesterday"
-    else:
-        return dt.strftime("%d %b %Y")
+    return dt.strftime("%d %b %Y")
 
 
 def _traffic_status(congestion: float) -> dict:
@@ -123,9 +104,12 @@ def _traffic_status(congestion: float) -> dict:
 # ── Single Prediction ─────────────────────────────────────────────────────
 
 class SinglePredictionRequest(BaseModel):
-    date: str = Field(..., min_length=1, max_length=50, description="Date: today, tomorrow, 2026-04-15, etc.")
+    date: str = Field(..., min_length=1, max_length=50, description="Date: 2026-04-15, 15/04/2026, etc.")
     time: str = Field(..., min_length=1, max_length=20, description="Time: 8 AM, 5:30 PM, 17:00, etc.")
     city: str = Field(default="Delhi", min_length=2, max_length=50)
+    weather: str = Field(default="clear", description="clear, rainy, foggy, stormy")
+    is_holiday: bool = Field(default=False)
+    is_event: bool = Field(default=False)
 
 
 @router.post("/predict")
@@ -133,7 +117,7 @@ def predict(data: SinglePredictionRequest, current_user: dict = Depends(get_curr
     # Parse date
     parsed_date = _parse_date(data.date)
     if parsed_date is None:
-        raise HTTPException(status_code=422, detail=f"Invalid date: '{data.date}'. Use: today, tomorrow, 2026-04-15, 15/04/2026")
+        raise HTTPException(status_code=422, detail=f"Invalid date: '{data.date}'. Use formats like YYYY-MM-DD or DD/MM/YYYY")
 
     # Parse time
     parsed_hour = _parse_time(data.time)
@@ -154,6 +138,9 @@ def predict(data: SinglePredictionRequest, current_user: dict = Depends(get_curr
         city=city,
         day_of_week=day_of_week,
         month=month,
+        weather=data.weather,
+        is_holiday=data.is_holiday,
+        is_event=data.is_event
     )
 
     status = _traffic_status(congestion)
@@ -164,16 +151,7 @@ def predict(data: SinglePredictionRequest, current_user: dict = Depends(get_curr
         "timestamp": datetime.utcnow().isoformat(),
         "user_email": current_user["sub"],
         "action": "prediction_requested",
-        "details": f"City: {city}, Date: {data.date}, Time: {data.time}, Result: {congestion}%",
-    })
-
-    add_log({
-        "id": str(uuid.uuid4()),
-        "timestamp": datetime.utcnow().isoformat(),
-        "type": "prediction",
-        "user": current_user["sub"],
-        "city": city,
-        "result": congestion,
+        "details": f"City: {city}, Date: {data.date}, Time: {data.time}, Weather: {data.weather}, Result: {congestion}%",
     })
 
     return {
@@ -183,6 +161,9 @@ def predict(data: SinglePredictionRequest, current_user: dict = Depends(get_curr
         "time": _hour_to_ampm(parsed_hour),
         "hour": parsed_hour,
         "city": city,
+        "weather": data.weather,
+        "is_holiday": data.is_holiday,
+        "is_event": data.is_event,
         "congestion": congestion,
         "status": status["level"],
         "emoji": status["emoji"],
@@ -199,6 +180,9 @@ class BatchRow(BaseModel):
     date: str = Field(..., min_length=1, max_length=50)
     time: str = Field(..., min_length=1, max_length=20)
     city: str = Field(default="Delhi", min_length=2, max_length=50)
+    weather: str = Field(default="clear")
+    is_holiday: bool = Field(default=False)
+    is_event: bool = Field(default=False)
 
 
 class BatchPredictionRequest(BaseModel):
@@ -236,7 +220,15 @@ def predict_batch(data: BatchPredictionRequest, current_user: dict = Depends(get
         day_of_week = parsed_date.weekday()
         month = parsed_date.month
 
-        congestion = predict_congestion(hour=parsed_hour, city=city, day_of_week=day_of_week, month=month)
+        congestion = predict_congestion(
+            hour=parsed_hour, 
+            city=city, 
+            day_of_week=day_of_week, 
+            month=month,
+            weather=row.weather,
+            is_holiday=row.is_holiday,
+            is_event=row.is_event
+        )
         status = _traffic_status(congestion)
 
         results.append({
@@ -247,6 +239,7 @@ def predict_batch(data: BatchPredictionRequest, current_user: dict = Depends(get
             "time": _hour_to_ampm(parsed_hour),
             "hour": parsed_hour,
             "city": city,
+            "weather": row.weather,
             "congestion": congestion,
             "status": status["level"],
             "emoji": status["emoji"],
@@ -307,12 +300,12 @@ def predict_batch(data: BatchPredictionRequest, current_user: dict = Depends(get
 
 CSV_MAX_BYTES = 10 * 1024 * 1024  # 10 MB
 CSV_MAX_ROWS = 100_000
-SIMPLE_REQUIRED = {"date", "time", "city"}
+SIMPLE_REQUIRED = {"date", "time", "city"} # weather, is_holiday, is_event are optional
 RESPONSE_PREVIEW_LIMIT = 500
 
 
 def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
-    """Process simplified CSV (date, time, city) and predict traffic."""
+    """Process expanded CSV and predict traffic."""
     results = []
     errors = []
 
@@ -322,16 +315,16 @@ def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
 
         parsed_date = _parse_date(row.get("date", ""))
         if parsed_date is None:
-            row_errors.append(f"Invalid date: '{row.get('date', '')}'. Use: today, tomorrow, 2026-04-15, 15/04/2026")
+            row_errors.append(f"Invalid date: '{row.get('date', '')}'")
 
         parsed_hour = _parse_time(str(row.get("time", "")))
         if parsed_hour is None:
-            row_errors.append(f"Invalid time: '{row.get('time', '')}'. Use: 8 AM, 5:30 PM, 17:00")
+            row_errors.append(f"Invalid time: '{row.get('time', '')}'")
 
         raw_city = str(row.get("city", "")).strip()
         city = canonical_city(raw_city)
         if city not in VALID_CITIES:
-            row_errors.append(f"Unknown city: '{raw_city}'. Valid: Delhi, Mumbai, Bangalore, Chennai, Hyderabad")
+            row_errors.append(f"Unknown city: '{raw_city}'")
 
         if row_errors:
             errors.append({"row": row_num, "errors": row_errors, "date": str(row.get("date", "")), "time": str(row.get("time", "")), "city": raw_city})
@@ -339,8 +332,21 @@ def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
 
         day_of_week = parsed_date.weekday()
         month = parsed_date.month
+        
+        # Optional columns with defaults
+        weather = str(row.get("weather", "clear")).lower()
+        is_holiday = str(row.get("is_holiday", "no")).lower() in ["yes", "y", "true", "1"]
+        is_event = str(row.get("is_event", "no")).lower() in ["yes", "y", "true", "1"]
 
-        congestion = predict_congestion(hour=parsed_hour, city=city, day_of_week=day_of_week, month=month)
+        congestion = predict_congestion(
+            hour=parsed_hour, 
+            city=city, 
+            day_of_week=day_of_week, 
+            month=month,
+            weather=weather,
+            is_holiday=is_holiday,
+            is_event=is_event
+        )
         status = _traffic_status(congestion)
 
         results.append({
@@ -351,6 +357,9 @@ def _simple_batch_predict(df: pd.DataFrame) -> tuple[list, list]:
             "time": _hour_to_ampm(parsed_hour),
             "hour": parsed_hour,
             "city": city,
+            "weather": weather,
+            "is_holiday": is_holiday,
+            "is_event": is_event,
             "congestion": congestion,
             "status": status["level"],
             "emoji": status["emoji"],
@@ -389,7 +398,7 @@ async def upload_csv(
     if missing:
         raise HTTPException(
             status_code=422,
-            detail=f"Missing columns: {', '.join(sorted(missing))}. Your CSV needs: date, time, city",
+            detail=f"Missing columns: {', '.join(sorted(missing))}. Your CSV needs at least: date, time, city",
         )
 
     results, errors = _simple_batch_predict(df)

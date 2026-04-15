@@ -21,6 +21,14 @@ CITY_FACTORS = {
     "Hyderabad": 1.05,   # Moderate-High
 }
 
+# Weather mapping: Clear: 0, Rainy: 1, Foggy: 2, Stormy: 3
+WEATHER_MAPPING = {
+    "clear": 0,
+    "rainy": 1,
+    "foggy": 2,
+    "stormy": 3
+}
+
 def get_model_path() -> Path | None:
     if PRIMARY_MODEL_PATH.exists():
         return PRIMARY_MODEL_PATH
@@ -49,8 +57,16 @@ def city_factor(city: str) -> float:
     canonical = CITY_ALIASES.get(city, city)
     return CITY_FACTORS.get(canonical, 1.0)
 
-def deterministic_fallback(hour: int, city: str, day_of_week: int = 0, month: int = 1) -> float:
-    """Smart fallback prediction based on hour, city, day-of-week, and month."""
+def deterministic_fallback(
+    hour: int, 
+    city: str, 
+    day_of_week: int = 0, 
+    month: int = 1,
+    weather: int = 0,
+    is_holiday: int = 0,
+    is_event: int = 0
+) -> float:
+    """Smart fallback prediction based on hour, city, day-of-week, month, and new factors."""
     factor = city_factor(city)
     base = 25.0
     
@@ -70,31 +86,58 @@ def deterministic_fallback(hour: int, city: str, day_of_week: int = 0, month: in
         if 11 <= hour <= 19:
             base += 10
             
+    # Weather impact
+    if weather == 1: # Rainy
+        base += 15
+    elif weather == 2: # Foggy
+        base += 10
+    elif weather == 3: # Stormy
+        base += 25
+        
+    # Holiday impact
+    if is_holiday:
+        base *= 0.6
+        
+    # Event impact
+    if is_event:
+        base += 20
+            
     # Apply city factor
     base *= factor
     
     return base
 
-def predict_congestion(hour: int, city: str = "Delhi", day_of_week: int = 0, month: int = 1):
+def predict_congestion(
+    hour: int, 
+    city: str = "Delhi", 
+    day_of_week: int = 0, 
+    month: int = 1,
+    weather: str = "clear",
+    is_holiday: bool = False,
+    is_event: bool = False
+):
     """
-    Predict traffic congestion for a given hour, city, day, and month.
+    Predict traffic congestion for a given hour, city, day, month, weather, and flags.
     Returns congestion percentage (5.0 to 100.0).
     """
     model = load_model()
     factor = city_factor(city)
     is_weekend = 1 if (day_of_week >= 5) else 0
+    
+    weather_val = WEATHER_MAPPING.get(weather.lower(), 0)
+    holiday_val = 1 if is_holiday else 0
+    event_val = 1 if is_event else 0
 
     congestion = 0.0
     if model is not None:
         try:
-            # Model expects: [Hour, DayOfWeek, Month, IsWeekend]
-            # No more PM2.5 or other Kaggle data
-            prediction = model.predict([[hour, day_of_week, month, is_weekend]])
+            # Model expects: [Hour, DayOfWeek, Month, IsWeekend, Weather, IsHoliday, IsEvent]
+            prediction = model.predict([[hour, day_of_week, month, is_weekend, weather_val, holiday_val, event_val]])
             congestion = float(prediction[0]) * factor
         except Exception as exc:
             logger.warning("Prediction failed, using fallback: %s", exc)
-            congestion = deterministic_fallback(hour, city, day_of_week, month)
+            congestion = deterministic_fallback(hour, city, day_of_week, month, weather_val, holiday_val, event_val)
     else:
-        congestion = deterministic_fallback(hour, city, day_of_week, month)
+        congestion = deterministic_fallback(hour, city, day_of_week, month, weather_val, holiday_val, event_val)
 
     return round(min(max(congestion, 5.0), 100.0), 1)

@@ -66,21 +66,23 @@ const PredictionResultCard = ({ result }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-on-surface/5 p-5 rounded-[1.5rem] border border-on-surface/5 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-xl">event</span>
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary uppercase font-black text-[8px]">
+                {result.weather}
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Target Date</p>
-                <p className="text-sm font-black text-on-surface uppercase">{result.label}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Weather Factor</p>
+                <p className="text-sm font-black text-on-surface uppercase">{result.weather}</p>
               </div>
             </div>
             <div className="bg-on-surface/5 p-5 rounded-[1.5rem] border border-on-surface/5 flex items-center gap-4">
               <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
-                <span className="material-symbols-outlined text-xl">schedule</span>
+                <span className="material-symbols-outlined text-xl">{result.is_holiday ? 'event_available' : 'event_busy'}</span>
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Expected Time</p>
-                <p className="text-sm font-black text-on-surface uppercase">{result.time}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest opacity-40">Special Status</p>
+                <p className="text-sm font-black text-on-surface uppercase">
+                  {result.is_holiday ? 'Public Holiday' : result.is_event ? 'Special Event' : 'Standard Day'}
+                </p>
               </div>
             </div>
           </div>
@@ -96,7 +98,7 @@ const PredictionResultCard = ({ result }) => {
           </span>
         </div>
         <div className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface opacity-40">
-          Source: Neural Mobility Engine v4.0
+          Source: Neural Mobility Engine v5.0-Enhanced
         </div>
       </div>
     </div>

@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PRIMARY_MODEL_PATH = BASE_DIR / "data" / "models" / "traffic_predictor_lite.pkl"
 
-# Features: [Hour, DayOfWeek, Month, IsWeekend]
-FEATURES = ["Hour", "DayOfWeek", "Month", "IsWeekend"]
+# Features: [Hour, DayOfWeek, Month, IsWeekend, Weather, IsHoliday, IsEvent]
+FEATURES = ["Hour", "DayOfWeek", "Month", "IsWeekend", "Weather", "IsHoliday", "IsEvent"]
 PREDICTION_MIN = 5.0
 PREDICTION_MAX = 100.0
 
@@ -55,19 +55,18 @@ def check_prediction_range(model) -> bool:
     within the expected 5-100 range.  Returns True if all pass.
     """
     test_cases = [
-        # [Hour, DayOfWeek, Month, IsWeekend]
-        [9, 0, 4, 0],   # Monday morning peak, April
-        [18, 4, 11, 0], # Friday evening peak, November (Festival)
-        [14, 6, 5, 1],  # Sunday afternoon, May
-        [2, 2, 1, 0],   # Wednesday night, January
+        # [Hour, DayOfWeek, Month, IsWeekend, Weather, IsHoliday, IsEvent]
+        [9, 0, 4, 0, 0, 0, 0],   # Monday morning peak, April
+        [18, 4, 11, 0, 1, 0, 1], # Friday evening peak, Nov, Rainy, Event
+        [14, 6, 5, 1, 0, 1, 0],  # Sunday afternoon, May, Holiday
+        [2, 2, 1, 0, 2, 0, 0],   # Wednesday night, Jan, Foggy
     ]
 
     all_passed = True
     for case in test_cases:
         try:
             prediction = float(model.predict([case])[0])
-            # Clamping is handled in the service, but we check raw model output here
-            if not (0 <= prediction <= 120): # Giving some buffer for raw model
+            if not (0 <= prediction <= 140): # Allowing buffer for extra factors
                 logger.warning(
                     "Raw prediction %s for input %s is unusual.",
                     prediction, case

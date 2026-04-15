@@ -25,7 +25,10 @@ const Predictions = () => {
       const res = await api.post('/predictions/predict', {
         date: params.date,
         time: params.time,
-        city: params.city || "Delhi"
+        city: params.city || "Delhi",
+        weather: params.weather || "clear",
+        is_holiday: params.is_holiday || false,
+        is_event: params.is_event || false
       });
 
       setPredictionResult({
@@ -35,6 +38,9 @@ const Predictions = () => {
         day: res.data.day,
         time: res.data.time,
         city: res.data.city,
+        weather: res.data.weather,
+        is_holiday: res.data.is_holiday,
+        is_event: res.data.is_event,
         emoji: res.data.emoji,
         advice: res.data.advice,
         is_peak: res.data.peak_hour,
@@ -99,7 +105,7 @@ const Predictions = () => {
               )}
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <FlowForecast city={predictionResult?.city} aqi={predictionResult?.aqi} />
+                <FlowForecast city={predictionResult?.city} />
                 <ImpactDrivers city={predictionResult?.city} congestion={predictionResult?.congestion} />
               </div>
             </div>
@@ -127,5 +133,3 @@ const Predictions = () => {
 };
 
 export default Predictions;
-
-

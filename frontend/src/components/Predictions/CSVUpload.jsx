@@ -2,17 +2,13 @@ import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../services/api';
 
-const SAMPLE_CSV = `date,time,city
-today,8 AM,Delhi
-today,9 AM,Delhi
-today,12 PM,Mumbai
-today,5 PM,Mumbai
-today,6 PM,Delhi
-today,7 PM,Bangalore
-tomorrow,8 AM,Chennai
-tomorrow,10 AM,Hyderabad
-tomorrow,5 PM,Delhi
-tomorrow,6 PM,Mumbai
+const SAMPLE_CSV = `date,time,city,weather,is_holiday,is_event
+2026-05-20,9 AM,Delhi,clear,no,no
+2026-05-20,6 PM,Delhi,rainy,no,yes
+2026-05-21,8 AM,Mumbai,foggy,no,no
+2026-05-25,5 PM,Bangalore,stormy,yes,no
+2026-06-15,10 AM,Chennai,clear,no,no
+2026-08-15,9 AM,Delhi,clear,yes,yes
 `;
 
 function downloadBlob(content, filename, mime) {
@@ -26,13 +22,16 @@ function downloadBlob(content, filename, mime) {
 }
 
 function resultsToCsv(predictions) {
-  const header = 'date,day,time,city,congestion_percent,traffic_status,advice';
+  const header = 'date,day,time,city,weather,is_holiday,is_event,congestion_percent,traffic_status,advice';
   const rows = predictions.map((p) =>
     [
-      p.date_label,
+      p.date,
       p.day,
       p.time,
       p.city,
+      p.weather,
+      p.is_holiday ? 'yes' : 'no',
+      p.is_event ? 'yes' : 'no',
       p.congestion,
       p.status,
       `"${p.advice}"`,
@@ -127,34 +126,44 @@ const CSVUpload = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 overflow-y-auto max-h-[80vh] pr-2 custom-scrollbar">
       {/* Header */}
       <div className="space-y-2">
         <h3 className="text-2xl font-black text-on-surface uppercase tracking-tight">
-          Traffic Prediction
+          Bulk Traffic Prediction
         </h3>
         <p className="text-sm text-on-surface opacity-70 font-medium leading-relaxed max-w-2xl">
-          Upload a CSV file with <strong>date</strong>, <strong>time</strong>, and <strong>city</strong> — 
-          we'll predict how much traffic there will be. See which day and time has the 
-          most or least traffic!
+          Upload a CSV file with detailed parameters to predict metropolitan congestion at scale.
         </p>
       </div>
 
       {/* CSV Format Guide */}
-      <div className="bg-primary/5 border border-primary/15 rounded-2xl p-5 space-y-3">
-        <p className="text-[10px] font-black uppercase tracking-widest text-primary">How to prepare your CSV</p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+      <div className="bg-primary/5 border border-primary/15 rounded-2xl p-6 space-y-4">
+        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Required & Optional Columns</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
           <div className="space-y-1">
-            <p className="font-black text-on-surface text-xs">📅 date</p>
-            <p className="text-on-surface opacity-60 text-xs">today, tomorrow, 2026-04-15, 15/04/2026</p>
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">📅 date (Required)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">2026-05-20, 15/06/2026</p>
           </div>
           <div className="space-y-1">
-            <p className="font-black text-on-surface text-xs">🕐 time</p>
-            <p className="text-on-surface opacity-60 text-xs">8 AM, 5:30 PM, 17:00, 14</p>
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🕐 time (Required)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">9 AM, 6:30 PM, 14:00</p>
           </div>
           <div className="space-y-1">
-            <p className="font-black text-on-surface text-xs">🏙️ city</p>
-            <p className="text-on-surface opacity-60 text-xs">Delhi, Mumbai, Bangalore, Chennai, Hyderabad</p>
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🏙️ city (Required)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">Delhi, Mumbai, Bangalore...</p>
+          </div>
+          <div className="space-y-1">
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">☁️ weather (Optional)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">clear, rainy, foggy, stormy</p>
+          </div>
+          <div className="space-y-1">
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">🎊 is_holiday (Optional)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">yes, no</p>
+          </div>
+          <div className="space-y-1">
+            <p className="font-black text-on-surface text-xs uppercase tracking-tighter">📢 is_event (Optional)</p>
+            <p className="text-on-surface opacity-60 text-[10px] font-medium leading-relaxed">yes, no</p>
           </div>
         </div>
       </div>
@@ -192,21 +201,6 @@ const CSVUpload = () => {
         )}
       </div>
 
-      {/* Error */}
-      <AnimatePresence>
-        {error && (
-          <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-2xl p-4"
-          >
-            <span className="material-symbols-outlined text-red-400 text-xl mt-0.5">error</span>
-            <div>
-              <p className="text-red-400 font-black text-xs uppercase tracking-widest">Error</p>
-              <p className="text-red-300 text-sm mt-0.5">{error}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
         <button onClick={handleUpload} disabled={!file || loading}
@@ -215,7 +209,7 @@ const CSVUpload = () => {
           <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>
             {loading ? 'hourglass_top' : 'bolt'}
           </span>
-          {loading ? 'Predicting...' : 'Predict Traffic'}
+          {loading ? 'Analyzing...' : 'Predict Batch'}
         </button>
 
         {(file || result) && (
@@ -228,147 +222,99 @@ const CSVUpload = () => {
         )}
 
         <button
-          onClick={() => downloadBlob(SAMPLE_CSV, 'sample_traffic.csv', 'text/csv')}
+          onClick={() => downloadBlob(SAMPLE_CSV, 'sample_traffic_full.csv', 'text/csv')}
           className="flex items-center gap-2 bg-on-surface/10 text-on-surface px-6 py-3 rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.2em] active:scale-95 transition-all hover:bg-on-surface/15 ml-auto"
         >
           <span className="material-symbols-outlined text-base">download</span>
-          Download Sample CSV
+          Download Sample
         </button>
       </div>
-
-      {/* Loading */}
-      {loading && (
-        <div className="flex items-center justify-center gap-3 py-10">
-          <motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            className="material-symbols-outlined text-4xl text-primary"
-          >
-            autorenew
-          </motion.span>
-          <p className="text-on-surface font-black text-sm uppercase tracking-widest opacity-60">
-            Analyzing traffic patterns…
-          </p>
-        </div>
-      )}
 
       {/* Results */}
       <AnimatePresence>
         {result && !loading && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
 
-            {/* Insight Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <InsightCard
                 icon="analytics"
-                label="Average Traffic"
+                label="Avg Congestion"
                 value={`${result.insights?.average_congestion || 0}%`}
                 color="text-primary"
               />
               <InsightCard
                 icon="warning"
-                label="Worst Time"
+                label="Peak Load"
                 value={result.insights?.worst_time ? `${result.insights.worst_time.time}` : '—'}
-                sub={result.insights?.worst_time ? `${result.insights.worst_time.date_label} · ${result.insights.worst_time.day} · ${result.insights.worst_time.city} · ${result.insights.worst_time.congestion}%` : ''}
+                sub={result.insights?.worst_time ? `${result.insights.worst_time.date_label} · ${result.insights.worst_time.city}` : ''}
                 color="text-red-400"
               />
               <InsightCard
                 icon="thumb_up"
-                label="Best Time"
+                label="Clearance"
                 value={result.insights?.best_time ? `${result.insights.best_time.time}` : '—'}
-                sub={result.insights?.best_time ? `${result.insights.best_time.date_label} · ${result.insights.best_time.day} · ${result.insights.best_time.city} · ${result.insights.best_time.congestion}%` : ''}
+                sub={result.insights?.best_time ? `${result.insights.best_time.date_label} · ${result.insights.best_time.city}` : ''}
                 color="text-green-400"
               />
               <InsightCard
                 icon="traffic"
-                label="High Traffic Slots"
+                label="Critical Nodes"
                 value={result.insights?.high_traffic_count || 0}
-                sub={`out of ${result.processed} total`}
+                sub={`Impacted Slots`}
                 color="text-orange-400"
               />
             </div>
 
-            {/* Summary Stats */}
-            <div className="flex flex-wrap gap-3 text-[10px] font-black uppercase tracking-widest text-on-surface opacity-60">
-              <span>📊 {result.total_rows} rows</span>
-              <span>·</span>
-              <span>✅ {result.processed} predicted</span>
-              {result.failed > 0 && <><span>·</span><span className="text-red-400">❌ {result.failed} errors</span></>}
-              {result.predictions_truncated && <><span>·</span><span className="text-yellow-400">Showing first 500 of {result.processed}</span></>}
-            </div>
-
-            {/* Predictions Table */}
             {result.predictions.length > 0 && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-on-surface opacity-70">
-                    Predictions ({result.predictions.length}{result.predictions_truncated ? ` of ${result.processed}` : ''})
+                    Neural Flow Analysis Output
                   </h4>
                   <button
-                    onClick={() => downloadBlob(resultsToCsv(result.predictions), 'traffic_predictions.csv', 'text/csv')}
+                    onClick={() => downloadBlob(resultsToCsv(result.predictions), 'batch_predictions_report.csv', 'text/csv')}
                     className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-primary hover:opacity-80 transition-opacity"
                   >
-                    <span className="material-symbols-outlined text-base">download</span>
-                    Download Results
+                    <span className="material-symbols-outlined text-base">file_download</span>
+                    Export Full Report
                   </button>
                 </div>
-                <div className="overflow-x-auto rounded-2xl border border-on-surface/10">
-                  <table className="w-full text-xs">
+                <div className="overflow-x-auto rounded-[2rem] border border-on-surface/10 bg-on-surface/[0.02]">
+                  <table className="w-full text-left">
                     <thead>
-                      <tr className="bg-on-surface/10 text-on-surface text-[10px] uppercase tracking-widest">
-                        {['Date', 'Day', 'Time', 'City', 'Traffic', 'Advice'].map((h) => (
-                          <th key={h} className="px-4 py-3 text-left font-black opacity-60 whitespace-nowrap">{h}</th>
-                        ))}
+                      <tr className="border-b border-on-surface/10 text-[9px] font-black uppercase tracking-widest text-on-surface opacity-40">
+                        <th className="px-6 py-4">Date/Time</th>
+                        <th className="px-6 py-4">City</th>
+                        <th className="px-6 py-4">Factors</th>
+                        <th className="px-6 py-4">Congestion</th>
+                        <th className="px-6 py-4">Advisory</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="divide-y divide-on-surface/5">
                       {result.predictions.map((p, i) => (
-                        <tr key={i} className={`border-t border-on-surface/5 hover:bg-on-surface/5 transition-colors ${p.peak_hour ? 'bg-orange-500/[0.03]' : ''}`}>
-                          <td className="px-4 py-3 font-black text-on-surface">
-                            <div>{p.date_label}</div>
-                            <div className="text-[9px] opacity-40 font-bold">{p.date}</div>
+                        <tr key={i} className="group hover:bg-on-surface/[0.03] transition-colors">
+                          <td className="px-6 py-5">
+                            <p className="text-xs font-black text-on-surface uppercase tracking-tight">{p.time}</p>
+                            <p className="text-[9px] font-medium text-on-surface opacity-40 uppercase">{p.date_label}</p>
                           </td>
-                          <td className="px-4 py-3 font-bold text-on-surface opacity-70">{p.day}</td>
-                          <td className="px-4 py-3 font-black text-on-surface">
-                            {p.time}
-                            {p.peak_hour && <span className="ml-1.5 text-[8px] bg-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded-full font-black uppercase">Peak</span>}
+                          <td className="px-6 py-5">
+                            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">{p.city}</span>
                           </td>
-                          <td className="px-4 py-3 font-black text-on-surface">{p.city}</td>
-                          <td className="px-4 py-3">
+                          <td className="px-6 py-5">
+                            <div className="flex flex-wrap gap-2">
+                              <span className="px-2 py-0.5 bg-on-surface/5 rounded text-[8px] font-black uppercase tracking-tighter opacity-60 border border-on-surface/5">
+                                {p.weather}
+                              </span>
+                              {p.is_holiday && <span className="px-2 py-0.5 bg-secondary/10 text-secondary rounded text-[8px] font-black uppercase tracking-tighter border border-secondary/20">Holiday</span>}
+                              {p.is_event && <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-[8px] font-black uppercase tracking-tighter border border-primary/20">Event</span>}
+                            </div>
+                          </td>
+                          <td className="px-6 py-5">
                             <StatusBadge status={p.status} congestion={p.congestion} />
                           </td>
-                          <td className="px-4 py-3 text-on-surface opacity-60 max-w-[240px] text-[11px]" title={p.advice}>
-                            {p.advice}
+                          <td className="px-6 py-5">
+                            <p className="text-[10px] font-medium text-on-surface opacity-60 leading-relaxed max-w-[200px] italic">"{p.advice}"</p>
                           </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {/* Error Table */}
-            {result.errors.length > 0 && (
-              <div className="space-y-3">
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-red-400">
-                  Errors ({result.errors.length} rows)
-                </h4>
-                <div className="overflow-x-auto rounded-2xl border border-red-500/20">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="bg-red-500/10 text-on-surface text-[10px] uppercase tracking-widest">
-                        {['Row', 'Date', 'Time', 'City', 'Issue'].map((h) => (
-                          <th key={h} className="px-4 py-3 text-left font-black opacity-60 whitespace-nowrap">{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.errors.map((e, i) => (
-                        <tr key={i} className="border-t border-red-500/10">
-                          <td className="px-4 py-3 font-black text-red-400">{e.row}</td>
-                          <td className="px-4 py-3 text-on-surface opacity-60">{e.date || '—'}</td>
-                          <td className="px-4 py-3 text-on-surface opacity-60">{e.time || '—'}</td>
-                          <td className="px-4 py-3 text-on-surface opacity-60">{e.city || '—'}</td>
-                          <td className="px-4 py-3 text-red-400 text-[10px]">{e.errors.join(' · ')}</td>
                         </tr>
                       ))}
                     </tbody>
