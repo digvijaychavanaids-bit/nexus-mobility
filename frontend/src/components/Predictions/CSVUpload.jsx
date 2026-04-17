@@ -5,17 +5,21 @@ import { getCurrentRole } from '../../services/session';
 import ForecastResultsVisualizer from './ForecastResultsVisualizer';
 
 const SAMPLE_CSV = `date,time,city,location,weather,is_holiday,is_event,vehicle_count,pm2_5_ugm3,pm10_ugm3,co_ugm3,no2_ugm3
-2026-05-20,9 AM,Delhi,Connaught Place,clear,no,no,4450,88,145,990,43
-2026-05-20,6 PM,Delhi,Lajpat Nagar,rainy,no,yes,4680,96,162,1120,49
-2026-05-21,8 AM,Mumbai,Andheri,foggy,no,no,5220,52,81,520,27
-2026-05-25,5 PM,Bangalore,Whitefield,stormy,yes,no,4950,43,67,470,23
-2026-06-15,10 AM,Chennai,T. Nagar,clear,no,no,3810,38,58,430,19
-2026-07-03,8:30 AM,Hyderabad,HITEC City,clear,no,yes,5040,41,64,455,21
-2026-07-03,7 PM,Pune,Wagholi,rainy,no,no,3990,47,73,490,24
-2026-07-04,6:30 PM,Pune,Hadaparsar,clear,no,yes,4380,54,82,525,26
-2026-08-15,9 AM,Delhi,India Gate,clear,yes,yes,4210,91,152,1010,44
-2026-09-01,7:45 AM,Pune,Hadapsar,foggy,no,no,4520,58,88,560,29
-`;
+2026-03-22,9 AM,Delhi,Connaught Place,clear,no,no,4100,72,110,800,32
+2026-03-22,6 PM,Delhi,India Gate,clear,no,no,5200,95,150,1100,45
+2026-03-29,9 AM,Delhi,Connaught Place,rainy,no,no,3800,85,130,950,38
+2026-03-29,6 PM,Delhi,India Gate,clear,no,yes,5500,102,165,1200,52
+2026-04-05,9 AM,Delhi,Connaught Place,clear,no,no,4300,75,115,820,34
+2026-04-05,6 PM,Delhi,India Gate,foggy,no,no,4900,110,180,1300,58
+2026-04-06,8 AM,Mumbai,Andheri,clear,no,no,5100,48,75,480,22
+2026-04-07,9 AM,Bangalore,Whitefield,clear,no,no,5400,35,55,420,18
+2026-04-08,10 AM,Pune,Hadapsar,clear,no,no,4600,52,80,510,25
+2026-04-12,9 AM,Delhi,Connaught Place,clear,no,no,4500,78,120,850,36
+2026-04-12,6 PM,Delhi,India Gate,clear,no,yes,5800,108,175,1250,55
+2026-04-13,8 AM,Mumbai,Andheri,clear,no,no,5300,50,78,500,24
+2026-04-14,9 AM,Bangalore,Whitefield,rainy,no,no,4800,42,65,460,20
+2026-04-15,6 PM,Pune,Hadapsar,stormy,no,no,4100,65,95,580,31
+2026-04-16,9 AM,Delhi,Connaught Place,clear,no,no,4400,74,112,810,33`;
 
 function downloadBlob(content, filename, mime) {
   const blob = new Blob([content], { type: mime });
