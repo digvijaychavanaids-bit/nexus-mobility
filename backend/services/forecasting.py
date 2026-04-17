@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 from .ml import predict_traffic
 from utils.locations import canonicalize_location
+from utils.parsers import _parse_time, _parse_date, _hour_to_ampm, _friendly_date_label, _traffic_status, _predict_pollution_metrics
 
 def calculate_bias_factors(historical_df: pd.DataFrame) -> Dict[str, float]:
     """
@@ -20,7 +21,6 @@ def calculate_bias_factors(historical_df: pd.DataFrame) -> Dict[str, float]:
             time_raw = str(row.get('time', '12 PM'))
             
             # Simple hour extraction if it's already an int or standard format
-            from routes.predictions import _parse_time, _parse_date
             hour = _parse_time(time_raw)
             date = _parse_date(str(row.get('date', '')))
             
@@ -73,7 +73,6 @@ def generate_forecast(
     for _, row in historical_df.iterrows():
         city = str(row.get('city', 'Delhi')).strip()
         location = str(row.get('location', 'Main'))
-        from routes.predictions import _parse_time
         hour = _parse_time(str(row.get('time', '12 PM')))
         
         if hour is None: continue
@@ -89,8 +88,6 @@ def generate_forecast(
     # Generate future timestamps
     start_date = datetime.now() + timedelta(days=1)
     results = []
-    
-    from routes.predictions import _hour_to_ampm, _friendly_date_label, _traffic_status, _predict_pollution_metrics
     
     for d in range(forecast_days):
         current_date = start_date + timedelta(days=d)
